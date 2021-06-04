@@ -9,22 +9,24 @@ public sealed class DialogManager : MonoBehaviour
     private Queue<string> sentences;
     private static DialogManager instance = null;
     private static readonly object padlock = new object();
-    public Text textBoxReference;
+    public TextBoxWithButton textBoxReference;
 
-    public DialogManager(Text textBox)
+    public DialogManager(TextBoxWithButton textBox)
     {
         sentences = new Queue<string>();
         textBoxReference = textBox;
     }
 
-    public static DialogManager getManager(Text textBox = null)
+    public static DialogManager getManager(TextBoxWithButton textBox = null)
     {
         lock(padlock)
         {
             if(DialogManager.instance == null)
             {
+                Debug.unityLogger.Log($"Starting dialog manager with text reference {textBox}");
                 DialogManager.instance = new DialogManager(textBox);
             }
+            Debug.unityLogger.Log($"Starting dialog manager with text reference {DialogManager.instance.textBoxReference}");
             return DialogManager.instance;
         }
     }
@@ -48,7 +50,7 @@ public sealed class DialogManager : MonoBehaviour
         {
             sentences.Enqueue(sentence);
         }
-        this.textBoxReference.enabled = true;
+        this.textBoxReference.enable();
         this.DisplayNextSentence();
     }
 
@@ -59,14 +61,17 @@ public sealed class DialogManager : MonoBehaviour
             this.EndDialogue();
         }
         string sentence = this.sentences.Dequeue();
-        this.textBoxReference.text = sentence;
+        this.textBoxReference.textBox.text = sentence;
     }
 
     private void EndDialogue()
     {
         Debug.unityLogger.Log("finished dilgoue");
-        this.textBoxReference.enabled = false;
-
+        if(this.textBoxReference == null)
+        {
+            Debug.unityLogger.Log("textbox ref is null??");
+            return;
+        }
+        this.textBoxReference.hide();
     }
-
 }

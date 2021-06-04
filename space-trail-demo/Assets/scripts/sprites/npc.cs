@@ -7,7 +7,7 @@ public class npc : MonoBehaviour, IClickable
 {
     public Dialog dialog;
     public Transform body;
-    public Text textBox;
+    public TextBoxWithButton textBox;
     public LayerMask interactLayer;
 
     // Start is called before the first frame update
@@ -45,8 +45,9 @@ public class npc : MonoBehaviour, IClickable
             Debug.unityLogger.Log("NPC was clicked!");
             if (CanInteract())
             {
-                Debug.unityLogger.Log("User is close enough for interaction");
+                Debug.unityLogger.Log($"User is close enough for interaction");
                 DialogManager manager = DialogManager.getManager(this.textBox);
+                
                 manager.StartDialogue(this.dialog);
             }
             else
