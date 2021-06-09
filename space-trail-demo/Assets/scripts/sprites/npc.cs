@@ -5,15 +5,21 @@ using UnityEngine.UI;
 
 public class npc : MonoBehaviour, IClickable
 {
+    [SerializeField]
     public Dialog dialog;
+    [SerializeField]
     public Transform body;
+    [SerializeField]
     public TextBoxWithButton textBox;
+    [SerializeField]
     public LayerMask interactLayer;
+    [SerializeField]
+    public string name;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        this.dialog.sentences.Add($"My name is {this.name}");
     }
 
     // Update is called once per frame
@@ -46,8 +52,10 @@ public class npc : MonoBehaviour, IClickable
             if (CanInteract())
             {
                 Debug.unityLogger.Log($"User is close enough for interaction");
-                DialogManager manager = DialogManager.getManager(this.textBox);
-                
+                DialogManager manager = DialogManager.instance;
+                manager.textBoxReference = this.textBox;
+
+
                 manager.StartDialogue(this.dialog);
             }
             else

@@ -107,7 +107,7 @@ public class player : MonoBehaviour
 
     public void TriggerDialogue()
     {
-        DialogManager mgr = DialogManager.getManager();
+        DialogManager mgr = DialogManager.instance;
 
     }
 }
