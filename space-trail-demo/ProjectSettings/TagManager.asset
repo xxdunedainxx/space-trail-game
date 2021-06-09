@@ -15,7 +15,7 @@ TagManager:
   - Obtainable
   - npc
   - playerlayer
-  - 
+  - backgroundimage
   - 
   - 
   - 
@@ -38,6 +38,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: backgroundlayer
+    uniqueID: 626012103
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

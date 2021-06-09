@@ -53,14 +53,13 @@
     <UnityVersion>2020.3.10f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Assets\scripts\core\ClickManager.cs" />
-    <Compile Include="Assets\scripts\ui\DialogManager.cs" />
-    <Compile Include="Assets\scripts\ui\Dialog.cs" />
-    <Compile Include="Assets\scripts\sprites\player.cs" />
-    <Compile Include="Assets\scripts\sprites\npc.cs" />
-    <Compile Include="Assets\scripts\core\IClickable.cs" />
-    <Compile Include="Assets\scripts\ui\TextBoxWithButton.cs" />
-    <Compile Include="Assets\somebutton.cs" />
+    <Compile Include="Assets\scripts\ClickManager.cs" />
+    <Compile Include="Assets\scripts\DialogManager.cs" />
+    <Compile Include="Assets\scripts\Dialog.cs" />
+    <Compile Include="Assets\scripts\player.cs" />
+    <Compile Include="Assets\scripts\npc.cs" />
+    <Compile Include="Assets\scripts\IClickable.cs" />
+    <Compile Include="Assets\scripts\TextboxWithButton.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
