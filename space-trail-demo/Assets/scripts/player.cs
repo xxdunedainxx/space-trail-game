@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class player : MonoBehaviour
 {
@@ -13,6 +14,15 @@ public class player : MonoBehaviour
     public Transform head;
     public LayerMask groundLayers;
     public LayerMask npcDialog;
+    [SerializeField]
+    public Sprite downImage;
+    [SerializeField]
+    public Sprite rightImage;
+    [SerializeField]
+    public Sprite upImage;
+    [SerializeField]
+    public Sprite leftImage;
+
 
     public float mx;
     public float my;
@@ -53,6 +63,23 @@ public class player : MonoBehaviour
             {
                 Debug.unityLogger.Log("They are trying to interact with something.");
             }*/
+        }
+
+        if(Input.GetKeyDown(KeyCode.S))
+        {
+            this.gameObject.GetComponent<SpriteRenderer>().sprite = this.downImage;
+        }
+        else if (Input.GetKeyDown(KeyCode.D))
+        {
+            this.gameObject.GetComponent<SpriteRenderer>().sprite = this.rightImage;
+        }
+        else if (Input.GetKeyDown(KeyCode.A))
+        {
+            this.gameObject.GetComponent<SpriteRenderer>().sprite = this.leftImage;
+        }
+        else if (Input.GetKeyDown(KeyCode.W))
+        {
+            this.gameObject.GetComponent<SpriteRenderer>().sprite = this.upImage;
         }
 
     }
