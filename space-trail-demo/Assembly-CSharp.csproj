@@ -54,12 +54,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Assets\scripts\ClickManager.cs" />
+    <Compile Include="Assets\scripts\TextboxWithButton.cs" />
     <Compile Include="Assets\scripts\DialogManager.cs" />
     <Compile Include="Assets\scripts\Dialog.cs" />
     <Compile Include="Assets\scripts\player.cs" />
     <Compile Include="Assets\scripts\npc.cs" />
     <Compile Include="Assets\scripts\IClickable.cs" />
-    <Compile Include="Assets\scripts\TextboxWithButton.cs" />
+    <Compile Include="Assets\scripts\MovementValues.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

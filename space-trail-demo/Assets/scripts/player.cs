@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Assets.scripts;
 
 public class player : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class player : MonoBehaviour
     public Rigidbody2D rb;
 
     public float jumpForce = 20f;
+    public Animator animator;
     public Transform feet;
     public Transform head;
     public LayerMask groundLayers;
@@ -19,10 +21,13 @@ public class player : MonoBehaviour
     [SerializeField]
     public Sprite rightImage;
     [SerializeField]
+    public Sprite rightImageMoving;
+    [SerializeField]
     public Sprite upImage;
     [SerializeField]
     public Sprite leftImage;
-
+    [SerializeField]
+    public Sprite leftImageMoving;
 
     public float mx;
     public float my;
@@ -67,19 +72,23 @@ public class player : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.S))
         {
-            this.gameObject.GetComponent<SpriteRenderer>().sprite = this.downImage;
+            this.animator.SetInteger("movingDirection", Movements.DownMoving);
+        }
+        else if (Input.GetKeyUp(KeyCode.D))
+        {
+            this.animator.SetInteger("movingDirection", Movements.Down);
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
-            this.gameObject.GetComponent<SpriteRenderer>().sprite = this.rightImage;
+            this.animator.SetInteger("movingDirection", Movements.RightMoving);
         }
         else if (Input.GetKeyDown(KeyCode.A))
         {
-            this.gameObject.GetComponent<SpriteRenderer>().sprite = this.leftImage;
+            this.animator.SetInteger("movingDirection", Movements.LeftMoving);
         }
         else if (Input.GetKeyDown(KeyCode.W))
         {
-            this.gameObject.GetComponent<SpriteRenderer>().sprite = this.upImage;
+            this.animator.SetInteger("movingDirection", Movements.UpMoving);
         }
 
     }
