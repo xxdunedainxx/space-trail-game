@@ -10,3 +10,5 @@ size of sprites:
 
 141
 171
+
+bookshelf : 600 length x 300 width
