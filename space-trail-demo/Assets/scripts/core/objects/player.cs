@@ -37,14 +37,14 @@ public class player : MonoBehaviour
 
     private GamePreferences preferences;
 
-    private List<Item> inventory;
+    private List<IItem> inventory;
 
     // Start is called before the first frame update
     void Start()
     {
         Debug.unityLogger.Log("Start new Player Object");
         this.preferences = GamePreferences.getPreferences();
-        this.inventory = new List<Item>();
+        this.inventory = new List<IItem>();
         // this.__logger.Log("Start new player object");
     }
 
@@ -163,9 +163,20 @@ public class player : MonoBehaviour
         DialogManager mgr = DialogManager.instance;
     }
 
-    public void addToInventory(Item item)
+    public void addToInventory(SingleItem item)
     {
+        Debug.unityLogger.Log("Adding single item to inv");
         this.inventory.Add(item);
+        this.printUserInventory();
+    }
+
+    public void addToInventory(ItemCollection items)
+    {
+        Debug.unityLogger.Log("Item collection, will iterate and add all itmes to user inv");
+        foreach (SingleItem item in items.items)
+        {
+            this.inventory.Add(item);
+        }
         this.printUserInventory();
     }
 
@@ -174,12 +185,17 @@ public class player : MonoBehaviour
        
     }
 
+    public List<IItem> getInventory()
+    {
+        return this.inventory;
+    }
+
     private void printUserInventory()
     {
         Debug.unityLogger.Log($"{this.name}'s current inventory:");
         for(int i = 0; i < this.inventory.Count; i++)
         {
-            Debug.unityLogger.Log($"{this.inventory[i].name}");
+            Debug.unityLogger.Log($"{this.inventory[i].name()}");
         }
     }
 }

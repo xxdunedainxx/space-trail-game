@@ -17,7 +17,14 @@ public class npc : MonoBehaviour, IClickable
     List<string> dynamicSentences = null;
     [SerializeField]
     public Sprite interactImage;
-
+    [SerializeField]
+    public Sprite interactImageNorth;
+    [SerializeField]
+    public Sprite interactImageSouth;
+    [SerializeField]
+    public Sprite interactImageWest;
+    [SerializeField]
+    public Sprite interactImageEast;
 
     public void Awake()
     {
@@ -35,7 +42,6 @@ public class npc : MonoBehaviour, IClickable
     public bool CanInteract()
     {
         Collider2D interactChecks = Physics2D.OverlapCircle(body.position, 0.5f, interactLayer);
-
         if (interactChecks != null)
         {
             return true;
@@ -43,16 +49,48 @@ public class npc : MonoBehaviour, IClickable
         return false;
     }
 
-    public void click()
+    public void orientImage()
+    {
+        if (this.interactImageEast && this.interactImageNorth && this.interactImageWest && this.interactImageSouth)
+        {
+            Collider2D col = Physics2D.OverlapCircle(body.position, 0.5f, interactLayer);
+            GameObject g = col.gameObject;
+            
+            if (Mathf.Abs(g.transform.position.x - this.transform.position.x) > Mathf.Abs(g.transform.position.y - this.transform.position.y))
+            {
+                if (g.transform.position.x > this.transform.position.x)
+                {
+                    this.gameObject.GetComponent<SpriteRenderer>().sprite = this.interactImageEast;
+                }
+                else
+                {
+                    this.gameObject.GetComponent<SpriteRenderer>().sprite = this.interactImageWest;
+                }
+            }
+            else
+            {
+                if (g.transform.position.y > this.transform.position.y)
+                {
+                    this.gameObject.GetComponent<SpriteRenderer>().sprite = this.interactImageNorth;
+                }
+                else
+                {
+                    this.gameObject.GetComponent<SpriteRenderer>().sprite = this.interactImageSouth;
+                }
+            }
+        }
+    }
+
+    public virtual void click()
     {
         if (this.dialog != null)
         {
             Debug.unityLogger.Log("NPC was clicked!");
             if (CanInteract())
             {
+                this.orientImage();
                 Debug.unityLogger.Log("User is close enough for interaction");
                 DialogManager manager = DialogManager.instance;
-                this.gameObject.GetComponent<SpriteRenderer>().sprite = this.interactImage;
                 manager.StartDialogue(this.dialog);
             }
             else

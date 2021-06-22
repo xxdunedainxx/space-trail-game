@@ -8,9 +8,14 @@ using UnityEngine;
 
 namespace Assets.scripts.core
 {
-    public class Book : Item
+    public class Book : SingleItem
     {
         [SerializeField]
         public string text = "Old man and the sea :)";
+
+        public Book(string text)
+        {
+            this.text = text;
+        }
     }
 }

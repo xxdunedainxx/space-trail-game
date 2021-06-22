@@ -12,7 +12,7 @@ namespace Assets.scripts.core.objects
     public class Bookshelf : ObtainableObject, IClickable
     {
         [SerializeField]
-        public List<Book> books = null;
+        public ItemCollection books = null;
         [SerializeField]
         public List<Sprite> bookShelfImages = null;
         [SerializeField]
@@ -48,26 +48,24 @@ namespace Assets.scripts.core.objects
         {
             if (CanInteract())
             {
-                if (this.books.Count > 0)
+                if (this.books.items.Count > 0)
                 {
-                    Book bookToReturn = this.books[0];
-                    Debug.unityLogger.Log($"User obtained book {bookToReturn.name}");
-                    this.books.RemoveAt(0);
-
-                    player player = GameObject.Find(Physics2D.OverlapCircle(body.position, .5f, interactLayer).attachedRigidbody.gameObject.name).GetComponent<player>();
-                    Debug.unityLogger.Log($"Adding to player {player.name}'s inventory");
-                    player.addToInventory(bookToReturn);
-                    if (this.bookShelfImages.Count > 0)
+                    for (int i = 0; i < this.books.items.Count; i++)
                     {
-                        this.gameObject.GetComponent<SpriteRenderer>().sprite = this.bookShelfImages[0];
-                        this.bookShelfImages.RemoveAt(0);
+                        SingleItem bookToReturn = this.books.items[i];
+                        Debug.unityLogger.Log($"User obtained item from bookshelf {bookToReturn.name()}");
+                        player player = GameObject.Find(Physics2D.OverlapCircle(body.position, .5f, interactLayer).attachedRigidbody.gameObject.name).GetComponent<player>();
+                        Debug.unityLogger.Log($"Adding to player {player.name}'s inventory");
+                        player.addToInventory(bookToReturn);
+                        if (this.bookShelfImages.Count > 0)
+                        {
+                            this.gameObject.GetComponent<SpriteRenderer>().sprite = this.bookShelfImages[0];
+                            this.bookShelfImages.RemoveAt(0);
+                        }
+                        this.emitEvent(new ObjectObtainedEvent(true, bookToReturn));
                     }
-
-                    if (this.books.Count <= 0)
-                    {
-                        this.associatedAnimation.disableAnimation();
-                        this.emitEvent(new ObjectObtainedEvent(true, this.name));
-                    }
+                    this.associatedAnimation.disableAnimation();
+                    this.books.items.Clear();
                 }
                 else
                 {

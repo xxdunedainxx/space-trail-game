@@ -42,7 +42,6 @@ GameObject:
   - component: {fileID: 7825347441689473478}
   - component: {fileID: 7825347441689473477}
   - component: {fileID: 2450208167372284386}
-  - component: {fileID: 2450208167372284385}
   m_Layer: 6
   m_Name: npc 1
   m_TagString: Untagged
@@ -168,25 +167,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 2}
   m_EdgeRadius: 0
---- !u!114 &2450208167372284385
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7825347441689473496}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e38b154b8a9ff24099efcd9b0fc2a06, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialog:
-    sentences: []
-  body: {fileID: 2450208166957886633}
-  name: Omeed Atefi
-  textBox: {fileID: 0}
-  interactLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  dynamicSentences:
-  - Hello, my name is ${name}

@@ -9,12 +9,12 @@ namespace Assets.scripts.core.objects
     class ObjectObtainedEvent : IEvent
     {
         public bool obtained;
-        public string name;
+        public SingleItem item;
 
-        public ObjectObtainedEvent(bool obtained, string name)
+        public ObjectObtainedEvent(bool obtained, SingleItem item)
         {
             this.obtained = obtained;
-            this.name = name;
+            this.item = item;
         }
     }
 }
