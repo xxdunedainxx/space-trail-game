@@ -1,69 +1,70 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Assets.scripts.core;
 using Assets.scripts.core.objects;
 using Assets.scripts.core.objects;
 
 namespace Assets.scripts.levels.lecturehall
 {
-    public class LectureHall : MonoBehaviour, ILevel, IEventConsumer
+    public class LectureHall : Level
     {
         private const string INVISIBLE_WALL = "InvisibleWall";
         private const string BOOK_SHELF = "big-book-shelf-focused 1";
+        private const string BOOK_TITLE = "Intro to metereology";
+        private const string SPARKLE = "";
         private const string OMEEDS_NOTE = "Omeed's Note";
+        private const string OMEED = "omeed";
+        private const string EMPTY_BOOK_SPRITE  = "big-book-shelf-focused-no-book";
+
         public bool levelComplete = false;
-        public GameObject invisibleWall;
+
+        public InvisibleBlock invisibleWall;
         public Bookshelf bookShelf;
+        private ObjectAnimationHandler sparkle;
+        private BookEvent bEvent;
+        private NoteEvent nEvent;
+        private Book metereologyBook = new Book(BOOK_TITLE);
+        private Note omeedsNote = new Note(OMEEDS_NOTE);
+        private Omeed omed;
+
+        public LectureHall() : base("LectureHall")
+        {
+            Debug.unityLogger.Log("LectureHall constructor");
+            
+        }
 
         // Start is called before the first frame update
         void Start()
         {
             Debug.unityLogger.Log("Initializing LectureHall level..");
             // add the 'invisible wall' dependency
-            this.invisibleWall = GameObject.Find(INVISIBLE_WALL);
+            this.invisibleWall = GameObject.Find(INVISIBLE_WALL).GetComponent<InvisibleBlock>();
             this.bookShelf = GameObject.Find(BOOK_SHELF).GetComponent<Bookshelf>();
-            this.bookShelf.addConsumer(this);
-            //this.initBookShelf();
+            this.sparkle = new ObjectAnimationHandler("sparle-anim0");
+            this.omed = GameObject.Find(OMEED).GetComponent<Omeed>();
+
+            this.nEvent = new NoteEvent(this.omeedsNote, ref this.invisibleWall);
+            this.bEvent = new BookEvent(this.metereologyBook, this.omeedsNote, this.bookShelf, this.sparkle, ref this.nEvent);
+
+            this.omed.nEvent = this.nEvent;
             Debug.unityLogger.Log("Done initializing lecture hall");
-        }
 
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
-        public void consumeEvent(IEvent even)
-        {
-            Debug.unityLogger.Log($"Event received for lecture hall.. {even.GetType()}");
-            ObjectObtainedEvent obj = (ObjectObtainedEvent)even;
-            Debug.unityLogger.Log($"Obtainable object {obj.item.name()}, {obj.obtained}");
-
-            if(obj.obtained && obj.item.name() == OMEEDS_NOTE)
+            if(GameState.getGameState().levelState.LECTURE_HALL.completed == true)
             {
-                this.noteDialogue((Note)obj.item);
+                GameState.getGameState().playerReference.transform.position = new Vector3((float)-1.29, (float)-3.63, 0);
+                this.gameState.playerReference.animator.Play("PlayerFacingLeft");
+                this.invisibleWall.Blocking = false;
+                this.sparkle.disableAnimation();
+                this.bookShelf.makeBookshelfEmpty();
             }
-        }
+            else
+            {
+                GameState.getGameState().playerReference.transform.position = new Vector3((float)-5.84, (float)-1.18, 0);
+            }
 
-        public void completeLevel()
-        {
-            this.invisibleWall.gameObject.SetActive(false);
+            // new Vector3((float)-5.84, (float)-1.18, 0);
         }
-
-        void noteDialogue(Note n)
-        {
-            Dialog noteDialogue = new Dialog(new List<string> { $"It appears you obtained a new-ish looking note with the content '{n.Content}'" });
-            DialogManager manager = DialogManager.instance;
-            manager.StartDialogue(noteDialogue);
-        }
-
-        /*private void initBookShelf()
-        {
-            Debug.unityLogger.Log("Adding bookwithnote to bookshelf");
-            Bookshelf shelfScript = this.bookShelf.gameObject.GetComponent<Bookshelf>();
-            shelfScript.books.Add(new BookWithNote());
-            Debug.unityLogger.Log("DONE Adding bookwithnote to bookshelf");
-        }*/
     }
 }

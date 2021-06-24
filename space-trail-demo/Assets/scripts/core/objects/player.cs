@@ -10,7 +10,7 @@ public class player : MonoBehaviour
     //private ILogger __logger;
     public float movementSpeed;
     public Rigidbody2D rb;
-
+    public string playerName = "player1";
     public float jumpForce = 20f;
     public Animator animator;
     public Transform feet;
@@ -35,6 +35,8 @@ public class player : MonoBehaviour
 
     public int coins;
 
+    public bool sideScrolling = false;
+
     private GamePreferences preferences;
 
     private List<IItem> inventory;
@@ -42,6 +44,7 @@ public class player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameState.getGameState().playerReference = this;
         Debug.unityLogger.Log("Start new Player Object");
         this.preferences = GamePreferences.getPreferences();
         this.inventory = new List<IItem>();
@@ -54,9 +57,9 @@ public class player : MonoBehaviour
         mx = Input.GetAxisRaw("Horizontal");
         my = Input.GetAxisRaw("Vertical");
 
-        /*if(Input.GetKeyDown(KeyCode.Space) && IsGrounded()) {
+        if(sideScrolling && Input.GetKeyDown(KeyCode.Space) && IsGrounded()) {
             Jump();
-        }*/
+        }
 
         if (Input.GetMouseButtonDown(0)) {
             Debug.unityLogger.Log("They clicked left");
@@ -112,11 +115,10 @@ public class player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector2 movementX = new Vector2(mx * movementSpeed, my * movementSpeed);  //rb.velocity.y
+        float yValue = sideScrolling ? rb.velocity.y : my *movementSpeed;
+        Vector2 movementX = new Vector2(mx * movementSpeed, yValue);  //rb.velocity.y  my * movementSpeed
 
         rb.velocity = movementX;
-
-
     }
 
     private void Jump() {

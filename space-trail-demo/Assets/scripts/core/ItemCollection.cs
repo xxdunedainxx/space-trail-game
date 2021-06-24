@@ -21,5 +21,10 @@ namespace Assets.scripts.core
         {
             return this.itemName;
         }
+
+        public string id()
+        {
+            return this.itemName;
+        }
     }
 }

@@ -22,6 +22,8 @@ namespace Assets.scripts.core.objects
         [SerializeField]
         public string name = "bookshelf";
 
+        List<ObjectObtainedEvent> events;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -54,15 +56,13 @@ namespace Assets.scripts.core.objects
                     {
                         SingleItem bookToReturn = this.books.items[i];
                         Debug.unityLogger.Log($"User obtained item from bookshelf {bookToReturn.name()}");
-                        player player = GameObject.Find(Physics2D.OverlapCircle(body.position, .5f, interactLayer).attachedRigidbody.gameObject.name).GetComponent<player>();
-                        Debug.unityLogger.Log($"Adding to player {player.name}'s inventory");
-                        player.addToInventory(bookToReturn);
+                        
                         if (this.bookShelfImages.Count > 0)
                         {
                             this.gameObject.GetComponent<SpriteRenderer>().sprite = this.bookShelfImages[0];
                             this.bookShelfImages.RemoveAt(0);
                         }
-                        this.emitEvent(new ObjectObtainedEvent(true, bookToReturn));
+                        
                     }
                     this.associatedAnimation.disableAnimation();
                     this.books.items.Clear();

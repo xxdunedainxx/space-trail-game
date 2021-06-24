@@ -26,5 +26,4 @@ public class LevelBlocker : MonoBehaviour
         manager.StartDialogue(this.dialog);
     }
 
-
 }

@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Assets.scripts.core.objects
 {
-    class Note: SingleItem
+    public class Note: SingleItem
     {
         [SerializeField]
         public string Content = "uh oh a secret note!";

@@ -10,29 +10,25 @@ namespace Assets.scripts.levels.lecturehall
     public class Omeed : npc, IClickable
     {
         public static string THE_BOOK_OMEEDS_NOTE_IS_IN = "Intro to metereology";
+        public NoteEvent nEvent;
+        private Dialog noteFoundDialogue = new Dialog(new List<string> { "Oh... it looks like you found my note in the book, i'll be taking that" });
 
         public override void click()
         {
             Debug.unityLogger.Log("Omeed was clicked?");
             if (CanInteract())
             {
-                Debug.unityLogger.Log("Omeed was clicked");
-                Collider2D collision = Physics2D.OverlapCircle(body.position, 0.5f, interactLayer);
-                player p = collision.gameObject.GetComponent<player>();
-                List<IItem> playerInv = p.getInventory();
-                foreach (IItem i in playerInv)
+                if (this.nEvent.active())
                 {
-                    Debug.unityLogger.Log("Looping using inventory");
-                    if (i.name() == Omeed.THE_BOOK_OMEEDS_NOTE_IS_IN)
-                    {
-                        Dialog d = new Dialog(new List<string> { "Oh... it looks like you found my note in the book, i'll be taking that" });
-                        this.interact(d);
-                        LectureHall l = GameObject.Find("LectureHall").GetComponent<LectureHall>();
-                        l.completeLevel();
-                        return;
-                    }
+                    Debug.unityLogger.Log("Note even is active");
+                    player p = GameState.getGameState().playerReference;
+                    this.nEvent.execute();
+                    this.interact(this.noteFoundDialogue);
                 }
-                this.interact(this.dialog);
+                else
+                {
+                   this.interact(this.dialog);
+                }
             }
         }
 

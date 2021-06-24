@@ -11,6 +11,15 @@ public class ObjectAnimationHandler : MonoBehaviour
     [SerializeField]
     public Animator animator;
 
+    private GameObject animationObject;
+
+    public ObjectAnimationHandler(string gobject)
+    {
+        this.animationObject = GameObject.Find(gobject);
+        this.spriteRender = this.animationObject.GetComponent<SpriteRenderer>();
+        this.animator = this.animationObject.GetComponent<Animator>();
+    }
+
     void Start()
     {
         UIObjectFactory objectFactory = UIObjectFactory.instance;

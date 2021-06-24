@@ -9,5 +9,6 @@ namespace Assets.scripts.core
     public interface IItem 
     {
         string name();
+        string id();
     }
 }

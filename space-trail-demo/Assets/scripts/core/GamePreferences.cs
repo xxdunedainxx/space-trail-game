@@ -7,7 +7,6 @@ using UnityEngine;
 
 namespace Assets.scripts.core
 {
-
     public sealed class GamePreferences
     {
         public class UserInputs
@@ -35,6 +34,9 @@ namespace Assets.scripts.core
             return GamePreferences.instance;
         }
 
-
+        public static void setGamePreferences(GamePreferences prefs)
+        {
+            GamePreferences.instance = prefs;
+        }
     }
 }

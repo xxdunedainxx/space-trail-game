@@ -1,7 +1,9 @@
+using Assets.scripts.core;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
 
 public class npc : MonoBehaviour, IClickable
 {
@@ -11,7 +13,6 @@ public class npc : MonoBehaviour, IClickable
     public Transform body;
     [SerializeField]
     public string name;
-    [SerializeField]
     public LayerMask interactLayer;
     [SerializeField]
     List<string> dynamicSentences = null;
@@ -28,7 +29,8 @@ public class npc : MonoBehaviour, IClickable
 
     public void Awake()
     {
-        if(this.dynamicSentences!= null)
+        this.interactLayer = Layers.PLAYER_LAYER;
+        if (this.dynamicSentences!= null)
         {
             this.generateDynamicSentences();
         }
