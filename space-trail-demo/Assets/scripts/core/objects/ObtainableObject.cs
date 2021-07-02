@@ -6,11 +6,9 @@ using Assets.scripts.core;
 public class ObtainableObject : MonoBehaviour, IClickable, IEventEmitter
 {
     [SerializeField]
-    public IItem item = null;
+    public SingleItem item = null;
     [SerializeField]
     public ObjectAnimationHandler associatedAnimation = null;
-    [SerializeField]
-    public Objective objective;
 
     private List<IEventConsumer> consumers = new List<IEventConsumer>();
 

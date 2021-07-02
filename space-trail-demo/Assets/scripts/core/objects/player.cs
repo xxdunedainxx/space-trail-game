@@ -4,14 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using Assets.scripts;
 using Assets.scripts.core;
+using System.Threading;
+using System;
 
 public class player : MonoBehaviour
 {
     //private ILogger __logger;
-    public float movementSpeed;
     public Rigidbody2D rb;
-    public string playerName = "player1";
-    public float jumpForce = 20f;
     public Animator animator;
     public Transform feet;
     public Transform head;
@@ -33,27 +32,70 @@ public class player : MonoBehaviour
     public float mx;
     public float my;
 
-    public int coins;
-
     public bool sideScrolling = false;
 
-    private GamePreferences preferences;
+    private GamePreferences preferences = null;
+    private PlayerState state = new PlayerState();
 
-    private List<IItem> inventory;
+    public bool ready = false;
+
+    public PlayerState getPlayerState()
+    {
+        return this.state;
+    }
+
+    public void setPlayerState(PlayerState state)
+    {
+        Debug.unityLogger.Log($"Setting player state to {state}");
+        this.state = state;
+    }
+
+    private bool playerReady()
+    {
+        if(this.state == null || this.preferences == null)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    IEnumerator waitPlayerReady()
+    {
+        yield return new WaitUntil(playerReady);
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         GameState.getGameState().playerReference = this;
+    }
+
+    public void initPlayer()
+    {
         Debug.unityLogger.Log("Start new Player Object");
         this.preferences = GamePreferences.getPreferences();
-        this.inventory = new List<IItem>();
+        if (this.state.inventory == null)
+        {
+            Debug.unityLogger.Log("inventory is null, initializing");
+            this.state.inventory = new List<SingleItem>();
+        }
+
+        GameState.getGameState().setReady();
         // this.__logger.Log("Start new player object");
     }
 
     // Update is called once per frame
     private void Update()
     {
+        if (playerReady() == false)
+        {
+            Debug.unityLogger.Log("player not ready yet...");
+            return;
+        }
+
         mx = Input.GetAxisRaw("Horizontal");
         my = Input.GetAxisRaw("Vertical");
 
@@ -115,14 +157,14 @@ public class player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        float yValue = sideScrolling ? rb.velocity.y : my *movementSpeed;
-        Vector2 movementX = new Vector2(mx * movementSpeed, yValue);  //rb.velocity.y  my * movementSpeed
+        float yValue = sideScrolling ? rb.velocity.y : my * this.state.movementSpeed;
+        Vector2 movement = new Vector2(mx * this.state.movementSpeed, yValue);  //rb.velocity.y  my * movementSpeed
 
-        rb.velocity = movementX;
+        rb.velocity = movement;
     }
 
     private void Jump() {
-        Vector2 movement = new Vector2(rb.velocity.x, jumpForce);
+        Vector2 movement = new Vector2(rb.velocity.x, this.state.jumpForce);
 
         rb.velocity = movement;
     }
@@ -152,12 +194,10 @@ public class player : MonoBehaviour
     {
         Debug.unityLogger.Log("Colided with objecty?");
         Debug.unityLogger.Log($"{other.gameObject.layer}");
-        if (other.gameObject.layer == 7)
+        /*if (other.gameObject.layer == 7)
         {
-            coins++;
             Destroy(other.gameObject);
-            Debug.unityLogger.Log($"User now has {this.coins} coins");
-        }
+        }*/
     }
 
     public void TriggerDialogue()
@@ -167,8 +207,8 @@ public class player : MonoBehaviour
 
     public void addToInventory(SingleItem item)
     {
-        Debug.unityLogger.Log("Adding single item to inv");
-        this.inventory.Add(item);
+        Debug.unityLogger.Log($"Adding single item to inv {item.name()}");
+        this.state.inventory.Add(item);
         this.printUserInventory();
     }
 
@@ -177,28 +217,74 @@ public class player : MonoBehaviour
         Debug.unityLogger.Log("Item collection, will iterate and add all itmes to user inv");
         foreach (SingleItem item in items.items)
         {
-            this.inventory.Add(item);
+            this.state.inventory.Add(item);
         }
         this.printUserInventory();
     }
 
     public void removeFromInventory(string itemID)
     {
-       
+       foreach(SingleItem item in this.state.inventory)
+        {
+            if(item.name() == itemID)
+            {
+                Debug.unityLogger.Log($"removing {item.name()} from inv");
+                this.state.inventory.Remove(item);
+                return;
+            }
+        }
     }
 
-    public List<IItem> getInventory()
+    public List<SingleItem> getInventory()
     {
-        return this.inventory;
+        return this.state.inventory;
     }
 
     private void printUserInventory()
     {
         Debug.unityLogger.Log($"{this.name}'s current inventory:");
-        for(int i = 0; i < this.inventory.Count; i++)
+        for(int i = 0; i < this.state.inventory.Count; i++)
         {
-            Debug.unityLogger.Log($"{this.inventory[i].name()}");
+            Debug.unityLogger.Log($"{ this.state.inventory[i].name()}");
         }
     }
 }
 
+[Serializable]
+public class PlayerState
+{
+    public List<SingleItem> inventory = new List<SingleItem>();
+    public string playerName = "player1";
+    public float jumpForce = 20f;
+    public float movementSpeed = 3;
+
+    public PlayerState()
+    {
+    }
+
+    public void printPlayerState()
+    {
+        string pLine = $@"
+            ==== PLAYER STATE ====
+            Inventory: {printInventory()},
+            Name: {playerName},
+            jumpForce: {jumpForce},
+            movement: {movementSpeed}
+        ";
+        Debug.unityLogger.Log(pLine);
+    }
+
+    public string printInventory()
+    {
+        if(this.inventory == null)
+        {
+            return "empty inventory..";
+        }
+        string sbuilder = "";
+        foreach(SingleItem itm in this.inventory)
+        {
+            sbuilder += $"{itm.name()}\n";
+        }
+        return sbuilder;
+    }
+}

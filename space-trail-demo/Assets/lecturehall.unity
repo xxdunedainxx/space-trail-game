@@ -576,10 +576,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b16973cb155a47e48822c7d7f8db54d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: 
-  ownedBy: None
-  sprite: {fileID: 0}
-  text: Old man and the sea :)
 --- !u!4 &379812077
 Transform:
   m_ObjectHideFlags: 0
@@ -2367,10 +2363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fde7297bf27b41647bcebca1e9b2a5d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 2
   rb: {fileID: 1180765011}
-  playerName: player1
-  jumpForce: 10
   animator: {fileID: 1180765014}
   feet: {fileID: 1316618919}
   head: {fileID: 0}
@@ -2388,7 +2381,8 @@ MonoBehaviour:
   leftImageMoving: {fileID: 21300000, guid: 5022e3efe1568b34993163d9e49072c0, type: 3}
   mx: 0
   my: 0
-  coins: 0
+  sideScrolling: 0
+  ready: 0
 --- !u!95 &1180765014
 Animator:
   serializedVersion: 3
@@ -4305,10 +4299,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2147429985}
   - component: {fileID: 2147429986}
-  - component: {fileID: 2147429987}
   - component: {fileID: 2147429990}
-  - component: {fileID: 2147429989}
-  - component: {fileID: 2147429988}
+  - component: {fileID: 2147429987}
   m_Layer: 0
   m_Name: LectureHall
   m_TagString: Untagged
@@ -4368,45 +4360,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2147429984}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d4d07d378a57db46b60edf35469c193, type: 3}
+  m_Script: {fileID: 11500000, guid: 2e61ff79b7237f64e94b4d919d9e9f29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: LectureHall
-  levelComplete: 0
-  invisibleWall: {fileID: 0}
-  bookShelf: {fileID: 0}
---- !u!114 &2147429988
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2147429984}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9ae6fa4d25547749a381a454300aecc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemName: Omeed's Note
-  ownedBy: Omeed
-  sprite: {fileID: 0}
-  Content: Some secret note with 'no no' information in it
---- !u!114 &2147429989
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2147429984}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b16973cb155a47e48822c7d7f8db54d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemName: Intro to metereology
-  ownedBy: None
-  sprite: {fileID: 0}
-  text: Something about rocks
+  level: LECTUREHALL
 --- !u!114 &2147429990
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4423,10 +4380,18 @@ MonoBehaviour:
   ownedBy: none
   sprite: {fileID: 0}
   items:
-  - {fileID: 2147429989}
-  - {fileID: 2147429988}
-  book: {fileID: 2147429989}
-  note: {fileID: 2147429988}
+  - itemName: emptyItem
+    ownedBy: None
+  - itemName: emptyItem
+    ownedBy: None
+  book:
+    itemName: Intro to metereology
+    ownedBy: None
+    text: Intro to metereology
+  note:
+    itemName: Some secret 'no no' note that no one should see
+    ownedBy: None
+    Content: Some secret 'no no' note that no one should see
 --- !u!1001 &2450208168232198387
 PrefabInstance:
   m_ObjectHideFlags: 0

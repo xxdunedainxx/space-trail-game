@@ -20,7 +20,7 @@ namespace Assets.scripts.levels.lecturehall
             {
                 if (this.nEvent.active())
                 {
-                    Debug.unityLogger.Log("Note even is active");
+                    Debug.unityLogger.Log("Note event is active");
                     player p = GameState.getGameState().playerReference;
                     this.nEvent.execute();
                     this.interact(this.noteFoundDialogue);
@@ -36,6 +36,7 @@ namespace Assets.scripts.levels.lecturehall
         {
             DialogManager manager = DialogManager.instance;
             this.gameObject.GetComponent<SpriteRenderer>().sprite = this.interactImage;
+            GameState.getGameState().playerReference.removeFromInventory("Omeed's Note");
             manager.StartDialogue(d);
         }
     }

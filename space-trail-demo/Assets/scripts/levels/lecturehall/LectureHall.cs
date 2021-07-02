@@ -32,11 +32,17 @@ namespace Assets.scripts.levels.lecturehall
         public LectureHall() : base("LectureHall")
         {
             Debug.unityLogger.Log("LectureHall constructor");
-            
         }
 
         // Start is called before the first frame update
         void Start()
+        {
+
+
+            // new Vector3((float)-5.84, (float)-1.18, 0);
+        }
+
+        public override void startLevel()
         {
             Debug.unityLogger.Log("Initializing LectureHall level..");
             // add the 'invisible wall' dependency
@@ -51,7 +57,7 @@ namespace Assets.scripts.levels.lecturehall
             this.omed.nEvent = this.nEvent;
             Debug.unityLogger.Log("Done initializing lecture hall");
 
-            if(GameState.getGameState().levelState.LECTURE_HALL.completed == true)
+            if (GameState.getGameState().levelState.LECTURE_HALL.completed == true)
             {
                 GameState.getGameState().playerReference.transform.position = new Vector3((float)-1.29, (float)-3.63, 0);
                 this.gameState.playerReference.animator.Play("PlayerFacingLeft");
@@ -63,8 +69,6 @@ namespace Assets.scripts.levels.lecturehall
             {
                 GameState.getGameState().playerReference.transform.position = new Vector3((float)-5.84, (float)-1.18, 0);
             }
-
-            // new Vector3((float)-5.84, (float)-1.18, 0);
         }
     }
 }
