@@ -18,6 +18,7 @@ namespace Assets.scripts.levels.lecturehall
             Debug.unityLogger.Log("Omeed was clicked?");
             if (CanInteract())
             {
+                this.orientImage();
                 if (this.nEvent.active())
                 {
                     Debug.unityLogger.Log("Note event is active");
@@ -35,7 +36,6 @@ namespace Assets.scripts.levels.lecturehall
         private void interact(Dialog d)
         {
             DialogManager manager = DialogManager.instance;
-            this.gameObject.GetComponent<SpriteRenderer>().sprite = this.interactImage;
             GameState.getGameState().playerReference.removeFromInventory("Omeed's Note");
             manager.StartDialogue(d);
         }

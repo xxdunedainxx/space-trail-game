@@ -10,13 +10,15 @@ public class Level
     public GameState gameState;
     public string name;
     public bool isVerticalLevel;
-    
-    public Level(string name, bool isVerticalLevel = false)
+    public bool requiresDialogue;
+
+    public Level(string name, bool isVerticalLevel = false, bool dialogue = true)
     {
         Debug.unityLogger.Log($"'{name}' level Instantiated");
 
         this.name = name;
         this.isVerticalLevel = isVerticalLevel;
+        this.requiresDialogue = dialogue;
     }
 
     public virtual void constructEventTree()
@@ -46,6 +48,8 @@ public class Level
     {
         player p = GameState.getGameState().playerReference;
         p.gameObject.GetComponent<Rigidbody2D>().gravityScale = 5;
+        p.getPlayerState().movementSpeed = 5;
         p.sideScrolling = true;
     }
+
 }

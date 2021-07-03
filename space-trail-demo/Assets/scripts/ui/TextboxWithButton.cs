@@ -14,6 +14,31 @@ public class TextboxWithButton : MonoBehaviour
     [SerializeField]
     public Image backgroundImage;
 
+    private void Awake()
+    {
+        StartCoroutine(WaitForManager());
+    }
+
+    private bool DialogManagerIsReady()
+    {
+        Debug.unityLogger.Log("Waiting for DialogManager instance...");
+        return DialogManager.instance != null;
+    }
+
+    private void SetManagerTextboxRef()
+    {
+        DialogManager manager = DialogManager.instance;
+        manager.textBoxReference = this;
+    }
+
+    IEnumerator WaitForManager()
+    {
+        yield return new WaitUntil(DialogManagerIsReady);
+        SetManagerTextboxRef();
+
+    }
+
+
     public TextboxWithButton(Text textb, Button btn, Text btnText = null, Image backgroundImage = null)
     {
         this.textBox = textb;

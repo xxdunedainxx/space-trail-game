@@ -17,8 +17,6 @@ public class npc : MonoBehaviour, IClickable
     [SerializeField]
     List<string> dynamicSentences = null;
     [SerializeField]
-    public Sprite interactImage;
-    [SerializeField]
     public Sprite interactImageNorth;
     [SerializeField]
     public Sprite interactImageSouth;

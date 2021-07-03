@@ -12,3 +12,5 @@ size of sprites:
 171
 
 bookshelf : 600 length x 300 width
+
+https://www.photoshopessentials.com/basics/repeating-patterns-intro/

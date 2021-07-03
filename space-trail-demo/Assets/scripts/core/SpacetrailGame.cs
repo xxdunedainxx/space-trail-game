@@ -27,7 +27,9 @@ public class SpacetrailGame : MonoBehaviour
         this.InitGameState();
         this.InitGamePreferences();
         StartCoroutine(this.WaitForEvents(this.doLast));
-        
+        this.InitializeDialogueManager();
+
+
     }
 
     private void doLast()
@@ -78,5 +80,14 @@ public class SpacetrailGame : MonoBehaviour
         player p = GameState.getGameState().playerReference;
         p.initPlayer();
         p.setPlayerState(Persistence.persistenceLayer.player);
+    }
+
+    private void InitializeDialogueManager()
+    {
+        if(this.lvl.requiresDialogue)
+        {
+            Debug.unityLogger.Log("level requires dialogue...");
+            this.gameObject.AddComponent<DialogManager>();
+        }
     }
 }

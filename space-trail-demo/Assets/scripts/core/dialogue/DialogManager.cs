@@ -11,7 +11,7 @@ public sealed class DialogManager : MonoBehaviour
     public static DialogManager instance { get; private set; }
     private static readonly object padlock = new object();
     public DialogueWriter writer;
-    public TextboxWithButton textBoxReference;
+    public TextboxWithButton textBoxReference = null;
     public Dialog currentDialogue;
 
     public DialogManager()
@@ -29,9 +29,37 @@ public sealed class DialogManager : MonoBehaviour
         {
             this.gameObject.AddComponent<DialogueWriter>();
             this.writer = this.gameObject.GetComponent<DialogueWriter>();
-            this.writer.textBox = this.textBoxReference.textBox;
-            instance = this;
+            SetInstance();
+            StartCoroutine(this.WaitForTextBoxSet());
         }
+    }
+
+    private void Start()
+    {
+        
+    }
+
+    bool TextBoxReady()
+    {
+        Debug.unityLogger.Log("waiting for text box...");
+        return this.textBoxReference != null;
+    }
+
+    private void SetInstance()
+    {
+        instance = this;
+    }
+
+    private void FinishTextWriter()
+    {
+        this.writer.textBox = this.textBoxReference.textBox;
+    }
+
+    IEnumerator WaitForTextBoxSet()
+    {
+        yield return new WaitUntil(TextBoxReady);
+        this.SetInstance();
+        this.FinishTextWriter();
     }
 
 
