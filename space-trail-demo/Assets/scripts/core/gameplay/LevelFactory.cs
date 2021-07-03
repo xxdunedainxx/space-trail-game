@@ -28,9 +28,9 @@ namespace Assets.scripts.core.gameplay
             return new Hallway();
         }
 
-        private static LectureHall generateLectureHall()
+        private static LevelLectureHall generateLectureHall()
         {
-            return new LectureHall();
+            return new LevelLectureHall();
         }
     }
 }

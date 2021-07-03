@@ -10,18 +10,18 @@ namespace Assets.scripts.core.objects
     public class ObjectObtainedEvent : IEvent
     {
         
-        public SingleItem item;
+        public BasicItem item;
         bool isActive = true;
         List<IEvent> dependentEvents;
 
-        public ObjectObtainedEvent(SingleItem item)
+        public ObjectObtainedEvent(BasicItem item)
         {
             this.item = item;
         }
 
         public ObjectObtainedEvent()
         {
-            this.item = new SingleItem();
+            this.item = new BasicItem();
         }
 
         public virtual string name()

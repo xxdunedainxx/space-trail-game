@@ -13,8 +13,7 @@ namespace Assets.scripts.levels.lecturehall
 {
     public class Bookshelf : MonoBehaviour, IClickable
     {
-        [SerializeField]
-        public ItemCollection books = null;
+        public BasicItemCollection books = null;
         [SerializeField]
         public Sprite defaultBookShelf;
         [SerializeField] 

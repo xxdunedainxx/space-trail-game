@@ -17,12 +17,6 @@ public class Level
 
         this.name = name;
         this.isVerticalLevel = isVerticalLevel;
-
-        if (isVerticalLevel)
-        {
-            Debug.unityLogger.Log("applying vertical graviy");
-            this.applyVerticalGravity();
-        }
     }
 
     public virtual void constructEventTree()
@@ -33,6 +27,12 @@ public class Level
     public virtual void startLevel()
     {
         Debug.unityLogger.Log("empty start level..");
+
+        if (isVerticalLevel)
+        {
+            Debug.unityLogger.Log("applying vertical graviy");
+            this.applyVerticalGravity();
+        }
     }
  
     public static void levelTransition(string toLevel)

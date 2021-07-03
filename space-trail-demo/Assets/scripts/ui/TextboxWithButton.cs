@@ -11,12 +11,15 @@ public class TextboxWithButton : MonoBehaviour
     public Button button;
     [SerializeField]
     public Text buttonText;
+    [SerializeField]
+    public Image backgroundImage;
 
-    public TextboxWithButton(Text textb, Button btn, Text btnText = null)
+    public TextboxWithButton(Text textb, Button btn, Text btnText = null, Image backgroundImage = null)
     {
         this.textBox = textb;
         this.button = btn;
         this.buttonText = btnText;
+        this.backgroundImage = backgroundImage;
     }
 
     public void clickButton()
@@ -31,6 +34,7 @@ public class TextboxWithButton : MonoBehaviour
         this.button.enabled = true;
         this.button.image.enabled = true;
         this.buttonText.enabled = true;
+        this.backgroundImage.enabled = true;
     }
 
     public void disable()
@@ -40,5 +44,6 @@ public class TextboxWithButton : MonoBehaviour
         this.button.enabled = false;
         this.button.image.enabled = false;
         this.buttonText.enabled = false;
+        this.backgroundImage.enabled = false;
     }
 }

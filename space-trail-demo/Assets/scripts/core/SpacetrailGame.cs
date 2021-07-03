@@ -13,6 +13,7 @@ public class SpacetrailGame : MonoBehaviour
 
     private void getLevel()
     {
+        Debug.unityLogger.Log($"Spacetrailgame is getting level {level}");
         this.lvl = LevelFactory.FetchLevel(this.level);
     }
 

@@ -14,10 +14,10 @@ namespace Assets.scripts.levels.lecturehall
     public class NoteEvent : ObjectObtainedEvent
     {
 
-        public Note noteItem;
+        public BasicNote noteItem;
         private InvisibleBlock invisibleWall;
 
-        public NoteEvent(Note note, ref InvisibleBlock invisibleWall) : base()
+        public NoteEvent(BasicNote note, ref InvisibleBlock invisibleWall) : base()
         {
             this.noteItem = note;
             this.invisibleWall = invisibleWall;

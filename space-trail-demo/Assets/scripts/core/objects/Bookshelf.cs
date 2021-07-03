@@ -11,8 +11,7 @@ namespace Assets.scripts.core.objects
 {
     public class Bookshelf : ObtainableObject, IClickable
     {
-        [SerializeField]
-        public ItemCollection books = null;
+        public BasicItemCollection books = null;
         [SerializeField]
         public List<Sprite> bookShelfImages = null;
         [SerializeField]
@@ -54,7 +53,7 @@ namespace Assets.scripts.core.objects
                 {
                     for (int i = 0; i < this.books.items.Count; i++)
                     {
-                        SingleItem bookToReturn = this.books.items[i];
+                        BasicItem bookToReturn = this.books.items[i];
                         Debug.unityLogger.Log($"User obtained item from bookshelf {bookToReturn.name()}");
                         
                         if (this.bookShelfImages.Count > 0)

@@ -15,11 +15,11 @@ namespace Assets.scripts.levels.lecturehall
     {
         private Bookshelf bookShelfRef;
         private ObjectAnimationHandler sparkle;
-        private Note noteItem;
-        private Book bookItem;
+        private BasicNote noteItem;
+        private BasicBook bookItem;
         private NoteEvent nEvent;
 
-        public BookEvent(Book book, Note note, Bookshelf bookShelf, ObjectAnimationHandler sparkle, ref NoteEvent nEvent) : base()
+        public BookEvent(BasicBook book, BasicNote note, Bookshelf bookShelf, ObjectAnimationHandler sparkle, ref NoteEvent nEvent) : base()
         {
             this.bookShelfRef = bookShelf;
             this.bookShelfRef.attachedEvent = this;
@@ -49,7 +49,7 @@ namespace Assets.scripts.levels.lecturehall
             this.nEvent.setEventActive();
         }
 
-        void noteDialogue(Note n)
+        void noteDialogue(BasicNote n)
         {
             Dialog noteDialogue = new Dialog(new List<string> { $"It appears you obtained a new-ish looking note with the content '{n.Content}'" });
             DialogManager manager = DialogManager.instance;

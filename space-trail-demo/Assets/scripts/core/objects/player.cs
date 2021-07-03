@@ -67,10 +67,17 @@ public class player : MonoBehaviour
         yield return new WaitUntil(playerReady);
     }
 
+    private void Awake()
+    {
+        Debug.unityLogger.Log("setting player reference in gamestate");
+        GameState.getGameState().playerReference = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        GameState.getGameState().playerReference = this;
+        
+        
     }
 
     public void initPlayer()
@@ -80,7 +87,7 @@ public class player : MonoBehaviour
         if (this.state.inventory == null)
         {
             Debug.unityLogger.Log("inventory is null, initializing");
-            this.state.inventory = new List<SingleItem>();
+            this.state.inventory = new List<BasicItem>();
         }
 
         GameState.getGameState().setReady();
@@ -205,17 +212,17 @@ public class player : MonoBehaviour
         DialogManager mgr = DialogManager.instance;
     }
 
-    public void addToInventory(SingleItem item)
+    public void addToInventory(BasicItem item)
     {
         Debug.unityLogger.Log($"Adding single item to inv {item.name()}");
         this.state.inventory.Add(item);
         this.printUserInventory();
     }
 
-    public void addToInventory(ItemCollection items)
+    public void addToInventory(BasicItemCollection items)
     {
         Debug.unityLogger.Log("Item collection, will iterate and add all itmes to user inv");
-        foreach (SingleItem item in items.items)
+        foreach (BasicItem item in items.items)
         {
             this.state.inventory.Add(item);
         }
@@ -224,7 +231,7 @@ public class player : MonoBehaviour
 
     public void removeFromInventory(string itemID)
     {
-       foreach(SingleItem item in this.state.inventory)
+       foreach(BasicItem item in this.state.inventory)
         {
             if(item.name() == itemID)
             {
@@ -235,7 +242,7 @@ public class player : MonoBehaviour
         }
     }
 
-    public List<SingleItem> getInventory()
+    public List<BasicItem> getInventory()
     {
         return this.state.inventory;
     }
@@ -253,7 +260,7 @@ public class player : MonoBehaviour
 [Serializable]
 public class PlayerState
 {
-    public List<SingleItem> inventory = new List<SingleItem>();
+    public List<BasicItem> inventory = new List<BasicItem>();
     public string playerName = "player1";
     public float jumpForce = 20f;
     public float movementSpeed = 3;
@@ -281,7 +288,7 @@ public class PlayerState
             return "empty inventory..";
         }
         string sbuilder = "";
-        foreach(SingleItem itm in this.inventory)
+        foreach(BasicItem itm in this.inventory)
         {
             sbuilder += $"{itm.name()}\n";
         }
