@@ -8,10 +8,11 @@ using UnityEngine.UI;
 
 namespace Assets.scripts.core.dialogue
 {
-    public class DialogueWriter : MonoBehaviour
+    public sealed class DialogueWriter : MonoBehaviour
     {
-        [SerializeField]
         public Text textBox;
+
+        public static DialogueWriter instance { get; private set; }
 
         public string sentenceToPrint;
         private float timer;
@@ -19,15 +20,24 @@ namespace Assets.scripts.core.dialogue
         private int characterIndex = 0;
         private bool isWriting = false;
         private bool writeToEnd = false;
+        private bool autoCompletedLast = false;
 
-        public DialogueWriter(Text t)
+        private void Awake()
         {
-            this.textBox = t;
+            if (instance != null && instance != this)
+            {
+                Destroy(this.gameObject);
+            }
+            else
+            {
+                Debug.unityLogger.Log("setting dialoguewriter instance");
+                this.SetInstance();
+            }
         }
 
-        public DialogueWriter()
+        private void SetInstance()
         {
-
+            instance = this;
         }
 
         private void Update()
@@ -39,6 +49,7 @@ namespace Assets.scripts.core.dialogue
                 {
                     this.textBox.text = this.sentenceToPrint;
                     this.UnsetVars();
+                    this.autoCompletedLast = true;
                 }
                 else
                 {
@@ -59,8 +70,9 @@ namespace Assets.scripts.core.dialogue
             }
         }
 
-        private void UnsetVars()
+        public void UnsetVars()
         {
+            Debug.unityLogger.Log("unsetting vars");
             this.characterIndex = 0;
             this.sentenceToPrint = null;
             this.isWriting = false;
@@ -69,6 +81,7 @@ namespace Assets.scripts.core.dialogue
 
         public void PrintSentence(string sentence, float writeTimer)
         {
+            this.UnsetVars();
             this.timePerCharacter = writeTimer;
             Debug.unityLogger.Log("printing sentence???");
             this.sentenceToPrint = sentence;
@@ -83,8 +96,19 @@ namespace Assets.scripts.core.dialogue
 
         public bool IsWriting()
         {
-            Debug.unityLogger.Log("DialogueWriter is writing");
+            Debug.unityLogger.Log($"DialogueWriter is writing {this.isWriting}");
             return this.isWriting;
+        }
+
+        public bool AutoCompletedLast()
+        {
+            return this.autoCompletedLast;
+        }
+
+        public void UnsetAutoComplete()
+        {
+            this.autoCompletedLast = false;
+            this.UnsetVars();
         }
     }
 }

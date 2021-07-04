@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using Assets.scripts.core;
 using Assets.scripts.core.objects;
 using Assets.scripts.core.objects;
+using Assets.scripts.core.dialogue;
 
 namespace Assets.scripts.levels.lecturehall
 {
@@ -28,6 +29,20 @@ namespace Assets.scripts.levels.lecturehall
         private BasicBook metereologyBook = new BasicBook(BOOK_TITLE);
         private BasicNote omeedsNote = new BasicNote(OMEEDS_NOTE);
         private Omeed omed;
+        private List<string> cutSceneDialogue = new List<string>
+        {
+            "Professor Alex McFadden: Why are asteroids important? Asteroids, like sharks in the ocean, get a bad wrap.",
+            "Professor Alex McFadden: Asteroids are destructive building blocks, but building blocks non-theless. Our legacy is as humans, can be traced back to these ‘lifeless’ vagabonds",
+            "Professor Alex McFadden: By studying and learning about asteroids, we also inherently learn more about ourselves as humans, and our relationship to the greater universe.",
+            "Omeed: uhhhhh professor, if your so smart, can you explain the difference between an asteroid and a meteor?",
+            "Professor Alex McFadden: ahhh good question Omeed. A meteor is a small piece of an asteroid that typically burns up prior to impacting a planet.",
+            "Professor Alex McFadden: An analogy would be, an asteroid is like your body, and the meteor is like that tiny thing between your legs.",
+            "Class: OOOOOOOOOOOO",
+            "Omeed: . . . ",
+            "Professor Alex McFadden: Well, thats it for todays class everyone. Remember, next weeks exam will be on chapters 5 & 6 PLUS today’s lecture on 7.1.",
+            "Professor Alex McFadden: Have a good weekend, and don’t forget any of your things on your way out."
+        };
+        private CutScene lectureHallCutScene;
 
         public LevelLectureHall() : base("LectureHall")
         {
@@ -67,7 +82,11 @@ namespace Assets.scripts.levels.lecturehall
             }
             else
             {
+                this.lectureHallCutScene = new CutScene(
+                    new Dialog(this.cutSceneDialogue, 0.1f)
+                );
                 GameState.getGameState().playerReference.transform.position = new Vector3((float)-6.8, (float)0.45, 0);
+                this.lectureHallCutScene.RunCutScene();
             }
         }
     }

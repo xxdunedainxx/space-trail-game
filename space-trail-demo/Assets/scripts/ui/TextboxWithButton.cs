@@ -23,6 +23,11 @@ public class TextboxWithButton : MonoBehaviour
         Debug.unityLogger.Log("TEXTBOXWITHBUTTON AWAKE?");
         Debug.unityLogger.Log("SETTING UP TEXTBOX MANAGER OBJECT");
         this.textBox = GameObject.Find(GameObjectLookupTable["Text"]).GetComponent<Text>();
+        this.textBox.gameObject.AddComponent<ContentSizeFitter>();
+        ContentSizeFitter c = this.textBox.GetComponent<ContentSizeFitter>();
+        this.textBox.fontSize = 25;
+        c.verticalFit = ContentSizeFitter.FitMode.Unconstrained;
+        c.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
         this.button = GameObject.Find(GameObjectLookupTable["Button"]).GetComponent<Button>();
         this.button.onClick.AddListener(this.clickButton);
         this.buttonText = GameObject.Find(GameObjectLookupTable["ButtonText"]).GetComponent<Text>();

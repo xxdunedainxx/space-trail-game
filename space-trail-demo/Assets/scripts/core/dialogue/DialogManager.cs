@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Assets.scripts.core.dialogue;
+using System;
 
 public sealed class DialogManager : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public sealed class DialogManager : MonoBehaviour
     public DialogueWriter writer;
     public TextboxWithButton textBoxReference = null;
     public Dialog currentDialogue;
+    private Action endDialogueCallBack = null;
+    private bool finishedLastSentence = false;
 
     public DialogManager()
     {
@@ -30,8 +33,7 @@ public sealed class DialogManager : MonoBehaviour
             Debug.unityLogger.Log("setting up objects for dialogue manager");
             this.gameObject.AddComponent<TextboxWithButton>();
             this.textBoxReference = this.gameObject.GetComponent<TextboxWithButton>();
-            this.gameObject.AddComponent<DialogueWriter>();
-            this.writer = this.gameObject.GetComponent<DialogueWriter>();
+            this.writer = DialogueWriter.instance;
             SetInstance();
             StartCoroutine(this.WaitForTextBoxSet());
         }
@@ -66,9 +68,9 @@ public sealed class DialogManager : MonoBehaviour
         this.FinishTextWriter();
     }
 
-
-    public void StartDialogue(Dialog dialogue) {
+    public void StartDialogue(Dialog dialogue, Action endDialogueCallback = null) {
         this.sentences.Clear();
+        this.endDialogueCallBack = endDialogueCallback;
         this.currentDialogue = dialogue;
         foreach(string sentence in dialogue.sentences)
         {
@@ -95,13 +97,19 @@ public sealed class DialogManager : MonoBehaviour
         }
         else
         {
+            if (this.writer.AutoCompletedLast())
+            {
+                this.writer.UnsetAutoComplete();
+            }
 
             if (this.writer.IsWriting())
             {
+                Debug.unityLogger.Log("WRITER IS WRITING??? Setting to end");
                 this.writer.SetToEnd();
             }
             else
             {
+
                 if (sentences.Count <= 0)
                 {
                     this.EndDialogue();
@@ -119,6 +127,11 @@ public sealed class DialogManager : MonoBehaviour
     {
         Debug.unityLogger.Log("finished dilgoue");
         this.textBoxReference.disable();
+        if(this.endDialogueCallBack != null)
+        {
+            Debug.unityLogger.Log("calling end dialogue callback");
+            this.endDialogueCallBack();
+        }
     }
 
 }

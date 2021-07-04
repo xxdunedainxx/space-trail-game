@@ -9,7 +9,7 @@ public class Dialog
     public List<string> sentences;
     public float dialogueTime = 0;
 
-    public Dialog(List<string> s, int dialogueTime = 0)
+    public Dialog(List<string> s, float dialogueTime = 0)
     {
         this.sentences = s;
         this.dialogueTime = dialogueTime;

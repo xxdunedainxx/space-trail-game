@@ -4630,7 +4630,6 @@ GameObject:
   - component: {fileID: 2147429985}
   - component: {fileID: 2147429986}
   - component: {fileID: 2147429987}
-  - component: {fileID: 2147429988}
   m_Layer: 0
   m_Name: LectureHall
   m_TagString: Untagged
@@ -4685,22 +4684,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: LECTUREHALL
---- !u!114 &2147429988
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2147429984}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9569ebd9a105f8409cae67aeb402632, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  textBox: {fileID: 0}
-  button: {fileID: 0}
-  buttonText: {fileID: 0}
-  backgroundImage: {fileID: 0}
 --- !u!1001 &235755045053316102
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4953,6 +4936,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2147429985}
     m_Modifications:
+    - target: {fileID: 3557237288879453645, guid: e5a28ea6e0cd081459783059eabe7318, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3557237290305844912, guid: e5a28ea6e0cd081459783059eabe7318, type: 3}
       propertyPath: m_Name
       value: CanvasDialogue 1

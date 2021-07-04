@@ -39,6 +39,8 @@ public class player : MonoBehaviour
 
     public bool ready = false;
 
+    private bool playerFreeze = false;
+
     public PlayerState getPlayerState()
     {
         return this.state;
@@ -94,6 +96,21 @@ public class player : MonoBehaviour
         // this.__logger.Log("Start new player object");
     }
 
+    public bool AllowPlayerMovement()
+    {
+        return this.playerFreeze == false;
+    }
+
+    public void FreezePlayer()
+    {
+        this.playerFreeze = true;
+    }
+
+    public void UnFreezePlayer()
+    {
+        this.playerFreeze = false;
+    }
+
     // Update is called once per frame
     private void Update()
     {
@@ -102,6 +119,13 @@ public class player : MonoBehaviour
             Debug.unityLogger.Log("player not ready yet...");
             return;
         }
+
+        if(AllowPlayerMovement() == false)
+        {
+            Debug.unityLogger.Log("player not allowed to move");
+            return;
+        }
+
 
         mx = Input.GetAxisRaw("Horizontal");
         my = Input.GetAxisRaw("Vertical");

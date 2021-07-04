@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Assets.scripts.core;
 using Assets.scripts.core.gameplay;
+using Assets.scripts.core.dialogue;
 using System;
 
 public class SpacetrailGame : MonoBehaviour
@@ -87,6 +88,7 @@ public class SpacetrailGame : MonoBehaviour
         if(this.lvl.requiresDialogue)
         {
             Debug.unityLogger.Log("level requires dialogue...");
+            this.gameObject.AddComponent<DialogueWriter>();
             this.gameObject.AddComponent<DialogManager>();
         }
     }

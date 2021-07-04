@@ -84,6 +84,7 @@
     <Compile Include="Assets\scripts\core\objects\items\BasicItem.cs" />
     <Compile Include="Assets\scripts\core\gameplay\Level.cs" />
     <Compile Include="Assets\scripts\core\objects\items\BasicBook.cs" />
+    <Compile Include="Assets\scripts\core\dialogue\CutScene.cs" />
     <Compile Include="Assets\scripts\levels\hallway\Hallway.cs" />
     <Compile Include="Assets\scripts\levels\lecturehall\BookEvent.cs" />
     <Compile Include="Assets\scripts\core\const\Layers.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="Assets\scripts\core\events\ObjectObtainedEvent.cs" />
     <Compile Include="Assets\scripts\core\objects\Bookshelf.cs" />
     <Compile Include="Assets\scripts\core\events\IEventEmitter.cs" />
+    <Compile Include="Assets\scripts\core\dialogue\FormatSentence.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
