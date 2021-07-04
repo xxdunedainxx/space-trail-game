@@ -27,6 +27,9 @@ public sealed class DialogManager : MonoBehaviour
         }
         else
         {
+            Debug.unityLogger.Log("setting up objects for dialogue manager");
+            this.gameObject.AddComponent<TextboxWithButton>();
+            this.textBoxReference = this.gameObject.GetComponent<TextboxWithButton>();
             this.gameObject.AddComponent<DialogueWriter>();
             this.writer = this.gameObject.GetComponent<DialogueWriter>();
             SetInstance();
@@ -58,6 +61,7 @@ public sealed class DialogManager : MonoBehaviour
     IEnumerator WaitForTextBoxSet()
     {
         yield return new WaitUntil(TextBoxReady);
+        Debug.unityLogger.Log("Text box ready!");
         this.SetInstance();
         this.FinishTextWriter();
     }
@@ -70,6 +74,7 @@ public sealed class DialogManager : MonoBehaviour
         {
             sentences.Enqueue(sentence);
         }
+        Debug.unityLogger.Log($"starting dialogue {dialogue.sentences}");
         this.textBoxReference.enable();
         this.DisplayNextSentence();
     }

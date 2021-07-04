@@ -279,7 +279,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 590642643547671220}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TextboxWithButton, Assembly-CSharp
         m_MethodName: clickButton
         m_Mode: 1
@@ -304,7 +304,6 @@ GameObject:
   - component: {fileID: 6524726301134502291}
   - component: {fileID: 6524726301134502380}
   - component: {fileID: 6524726301134502288}
-  - component: {fileID: 590642643547671220}
   m_Layer: 5
   m_Name: CanvasDialogue 1
   m_TagString: Untagged
@@ -403,22 +402,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6524726301134502382}
   m_CullTransparentMesh: 1
---- !u!114 &590642643547671220
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6524726301134502382}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9569ebd9a105f8409cae67aeb402632, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  textBox: {fileID: 0}
-  button: {fileID: 0}
-  buttonText: {fileID: 0}
-  backgroundImage: {fileID: 0}
 --- !u!1 &6524726301531038270
 GameObject:
   m_ObjectHideFlags: 0

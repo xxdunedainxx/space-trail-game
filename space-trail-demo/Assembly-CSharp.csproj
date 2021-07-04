@@ -67,7 +67,6 @@
     <Compile Include="Assets\scripts\core\objects\TransitionWall.cs" />
     <Compile Include="Assets\scripts\core\gameplay\GamePreferences.cs" />
     <Compile Include="Assets\scripts\core\events\EventTree.cs" />
-    <Compile Include="Assets\scripts\levels\lecturehall\LectureHallInstance.cs" />
     <Compile Include="Assets\scripts\levels\lecturehall\InvisibleBlock.cs" />
     <Compile Include="Assets\scripts\core\dialogue\Dialog.cs" />
     <Compile Include="Assets\scripts\core\objects\player.cs" />

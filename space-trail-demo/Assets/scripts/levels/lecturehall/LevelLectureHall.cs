@@ -67,7 +67,7 @@ namespace Assets.scripts.levels.lecturehall
             }
             else
             {
-                GameState.getGameState().playerReference.transform.position = new Vector3((float)-5.84, (float)-1.18, 0);
+                GameState.getGameState().playerReference.transform.position = new Vector3((float)-6.8, (float)0.45, 0);
             }
         }
     }

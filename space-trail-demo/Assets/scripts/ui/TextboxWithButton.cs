@@ -6,16 +6,27 @@ using UnityEngine.UI;
 public class TextboxWithButton : MonoBehaviour
 {
     [SerializeField]
+    public Dictionary<string, string> GameObjectLookupTable = new Dictionary<string, string>() {
+        {"Text", "CanvasDialogueTextBox" },
+        {"Button", "CanvasDialogueButton" },
+        {"ButtonText","CanvasDialogueButtonText" },
+        {"ButtonImage", "CanvasDialogueBackgroundImage" }
+    };
+
     public Text textBox;
-    [SerializeField]
     public Button button;
-    [SerializeField]
     public Text buttonText;
-    [SerializeField]
     public Image backgroundImage;
 
     private void Awake()
     {
+        Debug.unityLogger.Log("TEXTBOXWITHBUTTON AWAKE?");
+        Debug.unityLogger.Log("SETTING UP TEXTBOX MANAGER OBJECT");
+        this.textBox = GameObject.Find(GameObjectLookupTable["Text"]).GetComponent<Text>();
+        this.button = GameObject.Find(GameObjectLookupTable["Button"]).GetComponent<Button>();
+        this.button.onClick.AddListener(this.clickButton);
+        this.buttonText = GameObject.Find(GameObjectLookupTable["ButtonText"]).GetComponent<Text>();
+        this.backgroundImage = GameObject.Find(GameObjectLookupTable["ButtonImage"]).GetComponent<Image>();
         StartCoroutine(WaitForManager());
     }
 
@@ -27,6 +38,7 @@ public class TextboxWithButton : MonoBehaviour
 
     private void SetManagerTextboxRef()
     {
+        Debug.unityLogger.Log("setting text box ref...");
         DialogManager manager = DialogManager.instance;
         manager.textBoxReference = this;
     }
@@ -41,10 +53,16 @@ public class TextboxWithButton : MonoBehaviour
 
     public TextboxWithButton(Text textb, Button btn, Text btnText = null, Image backgroundImage = null)
     {
+        
         this.textBox = textb;
         this.button = btn;
         this.buttonText = btnText;
         this.backgroundImage = backgroundImage;
+    }
+
+    public TextboxWithButton()
+    {
+
     }
 
     public void clickButton()
@@ -64,6 +82,7 @@ public class TextboxWithButton : MonoBehaviour
 
     public void disable()
     {
+        Debug.unityLogger.Log("disable text box with button stuff");
         this.textBox.text = ""; //clear text before disabling
         this.textBox.enabled = false;
         this.button.enabled = false;
