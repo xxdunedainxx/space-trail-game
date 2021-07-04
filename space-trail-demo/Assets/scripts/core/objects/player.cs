@@ -29,6 +29,8 @@ public class player : MonoBehaviour
     [SerializeField]
     public Sprite leftImageMoving;
 
+    private Camera playerCam;
+
     public float mx;
     public float my;
 
@@ -78,8 +80,7 @@ public class player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
-        
+       this.playerCam = GameObject.Find("Main Camera").GetComponent<Camera>();
     }
 
     public void initPlayer()
@@ -183,7 +184,6 @@ public class player : MonoBehaviour
             //this.animator.SetInteger("movingDirection", Movements.UpMoving);
             this.animator.Play("PlayerFacingAwayCamera");
         }
-
     }
 
     private void FixedUpdate()

@@ -29,8 +29,6 @@ public class SpacetrailGame : MonoBehaviour
         this.InitGamePreferences();
         StartCoroutine(this.WaitForEvents(this.doLast));
         this.InitializeDialogueManager();
-
-
     }
 
     private void doLast()
@@ -38,6 +36,7 @@ public class SpacetrailGame : MonoBehaviour
         Debug.unityLogger.Log("Co-routines complete, doing last stuff");
         this.InitPlayerState();
         this.lvl.startLevel();
+        this.InitializeCameraFollow();
     }
 
     // Update is called once per frame
@@ -91,5 +90,10 @@ public class SpacetrailGame : MonoBehaviour
             this.gameObject.AddComponent<DialogueWriter>();
             this.gameObject.AddComponent<DialogManager>();
         }
+    }
+
+    private void InitializeCameraFollow()
+    {
+        this.gameObject.AddComponent<FollowPlayer>();
     }
 }
