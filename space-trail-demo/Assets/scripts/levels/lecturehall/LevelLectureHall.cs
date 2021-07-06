@@ -12,12 +12,13 @@ namespace Assets.scripts.levels.lecturehall
     public class LevelLectureHall : Level
     {
         private const string INVISIBLE_WALL = "InvisibleWall";
-        private const string BOOK_SHELF = "big-book-shelf-focused 1";
         private const string BOOK_TITLE = "Intro to metereology";
+        private const string BOOK_SHELF = "BOOK_SHELF";
         private const string SPARKLE = "";
         private const string OMEEDS_NOTE = "Omeed's Note";
         private const string OMEED = "omeed";
         private const string EMPTY_BOOK_SPRITE = "big-book-shelf-focused-no-book";
+        private const string CHALKBOARD = "chalkboard";
 
         public bool levelComplete = false;
 
@@ -28,6 +29,7 @@ namespace Assets.scripts.levels.lecturehall
         private NoteEvent nEvent;
         private BasicBook metereologyBook = new BasicBook(BOOK_TITLE);
         private BasicNote omeedsNote = new BasicNote(OMEEDS_NOTE);
+        private ChalkboardDialogue chalkBoard;
         private Omeed omed;
         private List<string> cutSceneDialogue = new List<string>
         {
@@ -62,12 +64,16 @@ namespace Assets.scripts.levels.lecturehall
             Debug.unityLogger.Log("Initializing LectureHall level..");
             // add the 'invisible wall' dependency
             this.invisibleWall = GameObject.Find(INVISIBLE_WALL).GetComponent<InvisibleBlock>();
-            this.bookShelf = GameObject.Find(BOOK_SHELF).GetComponent<Bookshelf>();
+            this.BuildBookShelf();
             this.sparkle = new ObjectAnimationHandler("sparle-anim0");
             this.omed = GameObject.Find(OMEED).GetComponent<Omeed>();
 
             this.nEvent = new NoteEvent(this.omeedsNote, ref this.invisibleWall);
             this.bEvent = new BookEvent(this.metereologyBook, this.omeedsNote, this.bookShelf, this.sparkle, ref this.nEvent);
+            GameObject.Find(CHALKBOARD).AddComponent<ChalkboardDialogue>();
+            this.chalkBoard = GameObject.Find(CHALKBOARD).GetComponent<ChalkboardDialogue>();
+            this.chalkBoard.lectureHallRef = this;
+
 
             this.omed.nEvent = this.nEvent;
             Debug.unityLogger.Log("Done initializing lecture hall");
@@ -88,6 +94,19 @@ namespace Assets.scripts.levels.lecturehall
                 GameState.getGameState().playerReference.transform.position = new Vector3((float)-6.8, (float)0.45, 0);
                 this.lectureHallCutScene.RunCutScene();
             }
+        }
+
+        private void BuildBookShelf()
+        {
+            GameObject bookShelfGameObject = GameObject.Find(BOOK_SHELF);
+            bookShelfGameObject.AddComponent<Bookshelf>();
+            this.bookShelf = GameObject.Find(BOOK_SHELF).GetComponent<Bookshelf>();
+            this.bookShelf.body = bookShelfGameObject.transform;
+            Sprite s = Resources.Load<Sprite>("Images/Levels/LectureHall/book-shelf-new");
+            Debug.unityLogger.Log($"Sprite {s}");
+            this.bookShelf.defaultBookShelf = s;
+            this.bookShelf.emptyBookShelf = Resources.Load<Sprite>("Images/Levels/LectureHall/book-shelf-new-book-removed");
+            Debug.unityLogger.Log($"Bookshelf images: {this.bookShelf.defaultBookShelf}/ {this.bookShelf.emptyBookShelf}");
         }
     }
 }

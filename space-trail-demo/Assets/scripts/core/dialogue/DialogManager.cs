@@ -123,9 +123,11 @@ public sealed class DialogManager : MonoBehaviour
         }
     }
 
-    private void EndDialogue()
+    public void EndDialogue()
     {
         Debug.unityLogger.Log("finished dilgoue");
+        this.sentences.Clear();
+        this.writer.UnsetVars();
         this.textBoxReference.disable();
         if(this.endDialogueCallBack != null)
         {

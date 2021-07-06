@@ -8,7 +8,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <ProjectGuid>{95E6E608-F41F-12B6-CCBE-21C427CA84AC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -62,6 +63,7 @@
     <Compile Include="Assets\scripts\levels\lecturehall\LevelLectureHall.cs" />
     <Compile Include="Assets\scripts\ui\TextboxWithButton.cs" />
     <Compile Include="Assets\scripts\core\dialogue\DialogueWriter.cs" />
+    <Compile Include="Assets\scripts\core\CameraWork\FollowPlayer.cs" />
     <Compile Include="Assets\scripts\core\gameplay\LevelFactory.cs" />
     <Compile Include="Assets\scripts\core\dialogue\DialogManager.cs" />
     <Compile Include="Assets\scripts\core\objects\TransitionWall.cs" />
@@ -97,7 +99,7 @@
     <Compile Include="Assets\scripts\core\events\ObjectObtainedEvent.cs" />
     <Compile Include="Assets\scripts\core\objects\Bookshelf.cs" />
     <Compile Include="Assets\scripts\core\events\IEventEmitter.cs" />
-    <Compile Include="Assets\scripts\core\CameraWork\FollowPlayer.cs" />
+    <Compile Include="Assets\scripts\levels\lecturehall\ChalkboardDialogue.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

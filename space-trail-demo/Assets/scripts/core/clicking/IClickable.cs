@@ -5,4 +5,5 @@ using UnityEngine;
 public interface IClickable 
 {
     void click();
+    bool CanInteract();
 }

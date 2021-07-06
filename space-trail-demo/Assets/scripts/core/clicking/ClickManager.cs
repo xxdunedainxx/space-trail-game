@@ -22,6 +22,7 @@ public class ClickManager : MonoBehaviour
             {
                 Debug.unityLogger.Log("something hit?");
                 IClickable clickable = hit.collider.GetComponent<IClickable>();
+                Debug.unityLogger.Log($"Clicked {clickable} { hit.collider.gameObject}");
                 clickable?.click();
             }
 

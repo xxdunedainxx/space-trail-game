@@ -33,9 +33,10 @@ namespace Assets.scripts.levels.lecturehall
            this.interactLayer = Layers.PLAYER_LAYER;
         }
 
-            public bool CanInteract()
+        public bool CanInteract()
         {
-            Collider2D interactChecks = Physics2D.OverlapCircle(body.position, .5f, interactLayer);
+            Debug.unityLogger.Log("Determing if they can click the book shelf...");
+            Collider2D interactChecks = Physics2D.OverlapCircle(body.position, 2f, interactLayer);
 
             if (interactChecks != null)
             {
@@ -47,6 +48,7 @@ namespace Assets.scripts.levels.lecturehall
 
         public void click()
         {
+            Debug.unityLogger.Log("clicked on bookshelf?");
             if (CanInteract())
             {
                 Debug.unityLogger.Log("User interacted with bookshelf");

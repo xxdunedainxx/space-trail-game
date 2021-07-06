@@ -40,4 +40,9 @@ public class ObtainableObject : MonoBehaviour, IClickable, IEventEmitter
     {
         this.consumers.Add(consumer);
     }
+
+    public bool CanInteract()
+    {
+        return true;
+    }
 }
