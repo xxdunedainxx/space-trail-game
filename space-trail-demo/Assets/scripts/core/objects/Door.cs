@@ -18,7 +18,10 @@ public class Door : MonoBehaviour, IClickable
     public void Awake()
     {
         this.interactLayer = Layers.PLAYER_LAYER;
-
+        if(this.body == null)
+        {
+            this.body = this.gameObject.transform;
+        }
     }
 
     public void click()

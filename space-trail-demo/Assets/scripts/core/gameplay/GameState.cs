@@ -11,6 +11,7 @@ public class GameState
     public static GameState instance { get; private set; }
     public LEVELS levelState = new LEVELS();
     private bool ready = false;
+    public string LAST_LEVEL = "";
 
     public GameState()
     {

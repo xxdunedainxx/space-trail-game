@@ -3,5 +3,6 @@ using System.Collections.Generic;
 
 public interface IDataBinder 
 {
-    void updateUIComponent();
+    void UpdateUIComponent();
+    void UpdateBackendComponent();
 }

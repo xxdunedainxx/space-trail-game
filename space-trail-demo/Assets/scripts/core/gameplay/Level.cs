@@ -21,6 +21,12 @@ public class Level
         this.requiresDialogue = dialogue;
     }
 
+    public virtual void prepareLevel()
+    {
+        Debug.unityLogger.Log("empty preperation... nothing to do");
+
+    }
+
     public virtual void constructEventTree()
     {
         Debug.unityLogger.Log("Level construct event tree called");
@@ -28,6 +34,7 @@ public class Level
 
     public virtual void startLevel()
     {
+        this.prepareLevel();
         Debug.unityLogger.Log("empty start level..");
 
         if (isVerticalLevel)
@@ -35,6 +42,7 @@ public class Level
             Debug.unityLogger.Log("applying vertical graviy");
             this.applyVerticalGravity();
         }
+        GameState.getGameState().LAST_LEVEL = this.name;
     }
  
     public static void levelTransition(string toLevel)

@@ -9,13 +9,15 @@ namespace Assets.scripts.core.gameplay
 {
     class LevelFactory
     {
-        static string LECTURE_HALL = "LECTUREHALL";
-        static string HALLWAY = "HALLWAY";
+        public static string LECTURE_HALL = "LECTUREHALL";
+        public static string HALLWAY = "HALLWAY";
+        public static string TA_OFFICE = "TAOffice";
 
         static Dictionary<string, Func<Level>> LEVELS = new Dictionary<string, Func<Level>>
         {
             {LevelFactory.HALLWAY, generateHallway },
-            {LevelFactory.LECTURE_HALL, generateLectureHall}
+            {LevelFactory.LECTURE_HALL, generateLectureHall},
+            {LevelFactory.TA_OFFICE, generateTAOffice }
         };
 
         public static Level FetchLevel(string name)
@@ -31,6 +33,11 @@ namespace Assets.scripts.core.gameplay
         private static LevelLectureHall generateLectureHall()
         {
             return new LevelLectureHall();
+        }
+
+        private static TAOffice generateTAOffice()
+        {
+            return new TAOffice();
         }
     }
 }

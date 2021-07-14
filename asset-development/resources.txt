@@ -5,12 +5,23 @@ https://www.youtube.com/watch?v=rLdA4Amea7Y
 https://www.youtube.com/watch?v=ad-3dn2qUUs
 https://www.youtube.com/watch?v=2kqOUWjYbHg
 https://www.youtube.com/c/BJGpixel
-
-size of sprites: 
-
-141
-171
-
-bookshelf : 600 length x 300 width
-
 https://www.photoshopessentials.com/basics/repeating-patterns-intro/
+
+
+Sprite sizes 
+60-->80
+
+
+Canvas Size: 
+405x324
+Resolution 72px per grid 
+
+Small objects 
+15x15--->40x40
+
+Medium Objects
+60x60-->80x80
+
+Large Objects
+100x100-->120x120
+

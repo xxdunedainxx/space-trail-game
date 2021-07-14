@@ -25,6 +25,7 @@ namespace Assets.scripts.levels.lecturehall
                     player p = GameState.getGameState().playerReference;
                     this.nEvent.execute();
                     this.interact(this.noteFoundDialogue);
+                    this.nEvent.setEventInactive();
                 }
                 else
                 {

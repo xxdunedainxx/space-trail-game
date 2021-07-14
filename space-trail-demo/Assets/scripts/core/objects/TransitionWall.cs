@@ -16,7 +16,13 @@ namespace Assets.scripts.core.objects
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            Level.levelTransition(sceneToTransitionTo);
+            Debug.unityLogger.Log($"transition wall: {collision.collider.gameObject.layer}, vs {Layers.PLAYER_LAYER_VALUE}");
+            if(collision.collider.gameObject.layer == Layers.PLAYER_LAYER_VALUE)
+            {
+                Level.levelTransition(sceneToTransitionTo);
+            }
+            
+            
         }
     }
 }

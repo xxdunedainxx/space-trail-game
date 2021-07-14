@@ -8,8 +8,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{95E6E608-F41F-12B6-CCBE-21C427CA84AC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -56,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Assets\scripts\core\clicking\ClickManager.cs" />
     <Compile Include="Assets\scripts\levels\lecturehall\NoteEvent.cs" />
+    <Compile Include="Assets\scripts\levels\ta-office\TAOffice.cs" />
     <Compile Include="Assets\scripts\core\SpacetrailGame.cs" />
     <Compile Include="Assets\scripts\core\events\IEventConsumer.cs" />
     <Compile Include="Assets\scripts\ui\ObjectAnimationHandler.cs" />
@@ -71,7 +71,7 @@
     <Compile Include="Assets\scripts\core\events\EventTree.cs" />
     <Compile Include="Assets\scripts\levels\lecturehall\InvisibleBlock.cs" />
     <Compile Include="Assets\scripts\core\dialogue\Dialog.cs" />
-    <Compile Include="Assets\scripts\core\objects\player.cs" />
+    <Compile Include="Assets\scripts\core\player\player.cs" />
     <Compile Include="Assets\scripts\ui\UIObjectFactory.cs" />
     <Compile Include="Assets\scripts\core\gameplay\Persistence.cs" />
     <Compile Include="Assets\scripts\core\objects\ObtainableObject.cs" />
@@ -86,6 +86,7 @@
     <Compile Include="Assets\scripts\core\objects\items\BasicItem.cs" />
     <Compile Include="Assets\scripts\core\dialogue\FormatSentence.cs" />
     <Compile Include="Assets\scripts\core\gameplay\Level.cs" />
+    <Compile Include="Assets\scripts\levels\lecturehall\ChalkboardDialogue.cs" />
     <Compile Include="Assets\scripts\core\objects\items\BasicBook.cs" />
     <Compile Include="Assets\scripts\core\dialogue\CutScene.cs" />
     <Compile Include="Assets\scripts\levels\hallway\Hallway.cs" />
@@ -99,7 +100,12 @@
     <Compile Include="Assets\scripts\core\events\ObjectObtainedEvent.cs" />
     <Compile Include="Assets\scripts\core\objects\Bookshelf.cs" />
     <Compile Include="Assets\scripts\core\events\IEventEmitter.cs" />
-    <Compile Include="Assets\scripts\levels\lecturehall\ChalkboardDialogue.cs" />
+    <Compile Include="Assets\scripts\core\events\DialogueEvent.cs" />
+    <Compile Include="Assets\scripts\core\objects\items\Inventory\Inventory.cs" />
+    <Compile Include="Assets\scripts\core\objects\items\Inventory\InventoryGUI.cs" />
+    <Compile Include="Assets\scripts\levels\ta-office\PaperTossGame.cs" />
+    <Compile Include="Assets\scripts\levels\ta-office\Paper.cs" />
+    <Compile Include="Assets\scripts\core\const\Directions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

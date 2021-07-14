@@ -13,5 +13,6 @@ namespace Assets.scripts.core
         public static LayerMask DEFAUL_LAYER = LayerMask.GetMask("default");
         public static LayerMask BACKGROUND_IMAGE = LayerMask.GetMask("backgroundimage");
         public static int BACKGROUND_IMAGE_LAYER_VALUE = LayerMask.NameToLayer("backgroundimage");
+        public static int PLAYER_LAYER_VALUE = LayerMask.NameToLayer("playerlayer");
     }
 }

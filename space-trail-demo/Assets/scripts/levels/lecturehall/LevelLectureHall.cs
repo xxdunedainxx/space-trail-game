@@ -69,7 +69,15 @@ namespace Assets.scripts.levels.lecturehall
             this.omed = GameObject.Find(OMEED).GetComponent<Omeed>();
 
             this.nEvent = new NoteEvent(this.omeedsNote, ref this.invisibleWall);
-            this.bEvent = new BookEvent(this.metereologyBook, this.omeedsNote, this.bookShelf, this.sparkle, ref this.nEvent);
+            if (GameState.getGameState().levelState.LECTURE_HALL.completed == true)
+            {
+                this.bookShelf.attachedEvent = new DialogueEvent(new List<string>() { "Looks like a normal book shelf..." }, "bookshelf-dialogue");
+                this.nEvent.setEventInactive();
+            }
+            else
+            {
+                this.bEvent = new BookEvent(this.metereologyBook, this.omeedsNote, this.bookShelf, this.sparkle, ref this.nEvent);
+            }
             GameObject.Find(CHALKBOARD).AddComponent<ChalkboardDialogue>();
             this.chalkBoard = GameObject.Find(CHALKBOARD).GetComponent<ChalkboardDialogue>();
             this.chalkBoard.lectureHallRef = this;
@@ -80,7 +88,7 @@ namespace Assets.scripts.levels.lecturehall
 
             if (GameState.getGameState().levelState.LECTURE_HALL.completed == true)
             {
-                GameState.getGameState().playerReference.transform.position = new Vector3((float)-1.29, (float)-3.63, 0);
+                GameState.getGameState().playerReference.transform.position = new Vector3(12.293f, -0.794f, 0);
                 this.gameState.playerReference.animator.Play("PlayerFacingLeft");
                 this.invisibleWall.Blocking = false;
                 this.sparkle.disableAnimation();
@@ -91,7 +99,7 @@ namespace Assets.scripts.levels.lecturehall
                 this.lectureHallCutScene = new CutScene(
                     new Dialog(this.cutSceneDialogue, 0.1f)
                 );
-                GameState.getGameState().playerReference.transform.position = new Vector3((float)-6.8, (float)0.45, 0);
+                GameState.getGameState().playerReference.transform.position = new Vector3((float)9.85, (float)-.069, 0);
                 this.lectureHallCutScene.RunCutScene();
             }
         }
@@ -102,10 +110,10 @@ namespace Assets.scripts.levels.lecturehall
             bookShelfGameObject.AddComponent<Bookshelf>();
             this.bookShelf = GameObject.Find(BOOK_SHELF).GetComponent<Bookshelf>();
             this.bookShelf.body = bookShelfGameObject.transform;
-            Sprite s = Resources.Load<Sprite>("Images/Levels/LectureHall/book-shelf-new");
+            Sprite s = Resources.Load<Sprite>("Images/chapters/chapter1/Levels/LectureHall/book-shelf-new");
             Debug.unityLogger.Log($"Sprite {s}");
             this.bookShelf.defaultBookShelf = s;
-            this.bookShelf.emptyBookShelf = Resources.Load<Sprite>("Images/Levels/LectureHall/book-shelf-new-book-removed");
+            this.bookShelf.emptyBookShelf = Resources.Load<Sprite>("Images/chapters/chapter1/Levels/LectureHall/book-shelf-new-book-removed");
             Debug.unityLogger.Log($"Bookshelf images: {this.bookShelf.defaultBookShelf}/ {this.bookShelf.emptyBookShelf}");
         }
     }

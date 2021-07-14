@@ -54,7 +54,7 @@ public class ChalkboardDialogue : MonoBehaviour, IClickable
 
     public bool CanInteract()
     {
-        Collider2D interactChecks = Physics2D.OverlapCircle(this.transform.position, 2f, interactLayer);
+        Collider2D interactChecks = Physics2D.OverlapCircle(this.transform.position, .5f, interactLayer);
         if (interactChecks != null)
         {
             return true;
