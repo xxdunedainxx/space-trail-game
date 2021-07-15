@@ -17,6 +17,7 @@ namespace Assets.scripts.core
             public  KeyCode moveUp = KeyCode.W;
             public  KeyCode moveLeft = KeyCode.A;
             public  KeyCode moveRight = KeyCode.D;
+            public  KeyCode inventory = KeyCode.I;
         }
 
         private static GamePreferences instance = null;

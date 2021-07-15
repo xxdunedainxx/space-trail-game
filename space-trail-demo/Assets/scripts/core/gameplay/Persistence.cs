@@ -38,7 +38,7 @@ namespace Assets.scripts.core
             
         }
 
-        private static bool CheckInitialized()
+        public static bool CheckInitialized()
         {
             return Persistence.initialized;
         }

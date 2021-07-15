@@ -42,7 +42,6 @@ namespace Assets.scripts.core.dialogue
 
         private void Update()
         {
-            Debug.unityLogger.Log("writing sentence???");
             if (textBox != null && this.sentenceToPrint != null)
             {
                 if (writeToEnd == true)

@@ -11,7 +11,9 @@ namespace Assets.scripts.core
     
     public interface IItem 
     {
+        string spriteName();
         string name();
         string id();
+        string description();
     }
 }

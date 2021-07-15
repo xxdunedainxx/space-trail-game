@@ -19,7 +19,7 @@ public class Paper : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Math.Abs(this.gameObject.transform.position.y - this.p.feet.transform.position.y) < .05f && stopped == false)
+        if (Math.Abs(this.gameObject.transform.position.y - this.p.feet.transform.position.y) < .005f && stopped == false)
         {
             Debug.unityLogger.Log("remove gravity from paper");
             this.rb.velocity = Vector2.zero;

@@ -27,5 +27,15 @@ namespace Assets.scripts.core
         {
             return this.itemName;
         }
+
+        public string spriteName()
+        {
+            return "default-item-sprite";
+        }
+
+        public string description()
+        {
+            return "some basic item";
+        }
     }
 }

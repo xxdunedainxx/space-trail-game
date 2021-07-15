@@ -17,6 +17,7 @@ public class player : MonoBehaviour
     public Transform body;
     public LayerMask groundLayers;
     public LayerMask npcDialog;
+    public InventoryController inventoryController;
     [SerializeField]
     public Sprite downImage;
     [SerializeField]
@@ -55,7 +56,7 @@ public class player : MonoBehaviour
         this.state = state;
     }
 
-    private bool playerReady()
+    public bool playerReady()
     {
         if(this.state == null || this.preferences == null)
         {
@@ -73,9 +74,16 @@ public class player : MonoBehaviour
     }
 
     private void Awake()
-    {
-        Debug.unityLogger.Log("setting player reference in gamestate");
-        GameState.getGameState().playerReference = this;
+    {    
+        if (GameState.getGameState().playerReference != null && GameState.getGameState().playerReference != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Debug.unityLogger.Log("setting player reference in gamestate");
+            GameState.getGameState().playerReference = this;
+        }
     }
 
     // Start is called before the first frame update
@@ -203,6 +211,9 @@ public class player : MonoBehaviour
             this.body.transform.rotation = Quaternion.Euler(
                 270f, 0f, 0f
             );
+        } else if (Input.GetKeyDown(this.preferences.inputs.inventory))
+        {
+            this.inventoryController.Enable();
         }
     }
 
