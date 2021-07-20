@@ -13,6 +13,8 @@ public sealed class DialogManager : MonoBehaviour
     private static readonly object padlock = new object();
     public DialogueWriter writer;
     public TextboxWithButton textBoxReference = null;
+    public YesNoButtons yesNoBtns = null;
+    public Canvas canvasRef = null;
     public Dialog currentDialogue;
     private Action endDialogueCallBack = null;
     private bool finishedLastSentence = false;
@@ -32,8 +34,11 @@ public sealed class DialogManager : MonoBehaviour
         {
             Debug.unityLogger.Log("setting up objects for dialogue manager");
             this.gameObject.AddComponent<TextboxWithButton>();
+            this.gameObject.AddComponent<YesNoButtons>();
+            this.yesNoBtns = this.gameObject.GetComponent<YesNoButtons>();
             this.textBoxReference = this.gameObject.GetComponent<TextboxWithButton>();
             this.writer = DialogueWriter.instance;
+            this.canvasRef = GameObject.Find("CanvasDialogue").GetComponent<Canvas>();
             SetInstance();
             StartCoroutine(this.WaitForTextBoxSet());
         }
@@ -68,7 +73,8 @@ public sealed class DialogManager : MonoBehaviour
         this.FinishTextWriter();
     }
 
-    public void StartDialogue(Dialog dialogue, Action endDialogueCallback = null) {
+    public void StartDialogue(Dialog dialogue, Action endDialogueCallback = null, bool yesNoButtonsEnabled = false) {
+        this.EndDialogue();
         this.sentences.Clear();
         this.endDialogueCallBack = endDialogueCallback;
         this.currentDialogue = dialogue;
@@ -78,6 +84,12 @@ public sealed class DialogManager : MonoBehaviour
         }
         Debug.unityLogger.Log($"starting dialogue {dialogue.sentences}");
         this.textBoxReference.enable();
+
+        if (yesNoButtonsEnabled)
+        {
+            this.yesNoBtns.enable();
+        }
+
         this.DisplayNextSentence();
     }
 
@@ -129,6 +141,7 @@ public sealed class DialogManager : MonoBehaviour
         this.sentences.Clear();
         this.writer.UnsetVars();
         this.textBoxReference.disable();
+        this.yesNoBtns.disable();
         if(this.endDialogueCallBack != null)
         {
             Debug.unityLogger.Log("calling end dialogue callback");

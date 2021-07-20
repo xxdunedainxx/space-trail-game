@@ -65,7 +65,6 @@ public class TextboxWithButton : MonoBehaviour
     {
         yield return new WaitUntil(DialogManagerIsReady);
         SetManagerTextboxRef();
-
     }
 
 

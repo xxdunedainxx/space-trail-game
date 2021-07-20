@@ -62,6 +62,7 @@
     <Compile Include="Assets\scripts\core\objects\items\IItem.cs" />
     <Compile Include="Assets\scripts\levels\lecturehall\LevelLectureHall.cs" />
     <Compile Include="Assets\scripts\ui\TextboxWithButton.cs" />
+    <Compile Include="Assets\scripts\ui\YesNoButtons.cs" />
     <Compile Include="Assets\scripts\core\dialogue\DialogueWriter.cs" />
     <Compile Include="Assets\scripts\core\CameraWork\FollowPlayer.cs" />
     <Compile Include="Assets\scripts\core\gameplay\LevelFactory.cs" />
@@ -74,11 +75,11 @@
     <Compile Include="Assets\scripts\core\player\player.cs" />
     <Compile Include="Assets\scripts\ui\UIObjectFactory.cs" />
     <Compile Include="Assets\scripts\core\gameplay\Persistence.cs" />
-    <Compile Include="Assets\scripts\core\objects\items\Inventory\Inventory.cs" />
     <Compile Include="Assets\scripts\core\objects\ObtainableObject.cs" />
     <Compile Include="Assets\scripts\core\objects\items\BasicNote.cs" />
     <Compile Include="Assets\scripts\core\gameplay\GameState.cs" />
     <Compile Include="Assets\scripts\core\events\IEvent.cs" />
+    <Compile Include="Assets\scripts\ui\InventoryController.cs" />
     <Compile Include="Assets\scripts\core\objects\Door.cs" />
     <Compile Include="Assets\scripts\levels\lecturehall\Bookshelf.cs" />
     <Compile Include="Assets\scripts\core\events\DialogueEvent.cs" />
@@ -86,7 +87,7 @@
     <Compile Include="Assets\scripts\core\objects\items\BasicItemCollection.cs" />
     <Compile Include="Assets\scripts\core\const\Directions.cs" />
     <Compile Include="Assets\scripts\core\const\MovementValues.cs" />
-    <Compile Include="Assets\scripts\core\objects\items\Inventory\InventoryGUI.cs" />
+    <Compile Include="Assets\scripts\ui\UIInventoryItem.cs" />
     <Compile Include="Assets\scripts\core\objects\items\BasicItem.cs" />
     <Compile Include="Assets\scripts\core\dialogue\FormatSentence.cs" />
     <Compile Include="Assets\scripts\core\gameplay\Level.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="Assets\scripts\core\dialogue\CutScene.cs" />
     <Compile Include="Assets\scripts\levels\hallway\Hallway.cs" />
     <Compile Include="Assets\scripts\levels\ta-office\PaperTossGame.cs" />
+    <Compile Include="Assets\scripts\core\objects\items\LabKit.cs" />
     <Compile Include="Assets\scripts\levels\lecturehall\BookEvent.cs" />
     <Compile Include="Assets\scripts\core\const\Layers.cs" />
     <Compile Include="Assets\scripts\levels\ta-office\Paper.cs" />
@@ -106,8 +108,7 @@
     <Compile Include="Assets\scripts\core\events\ObjectObtainedEvent.cs" />
     <Compile Include="Assets\scripts\core\objects\Bookshelf.cs" />
     <Compile Include="Assets\scripts\core\events\IEventEmitter.cs" />
-    <Compile Include="Assets\scripts\ui\InventoryController.cs" />
-    <Compile Include="Assets\scripts\ui\UIInventoryItem.cs" />
+    <Compile Include="Assets\scripts\ui\LevelTransitionHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

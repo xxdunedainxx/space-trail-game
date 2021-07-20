@@ -15,7 +15,7 @@ namespace Assets.scripts.levels.lecturehall
         private const string BOOK_TITLE = "Intro to metereology";
         private const string BOOK_SHELF = "BOOK_SHELF";
         private const string SPARKLE = "";
-        private const string OMEEDS_NOTE = "Omeed's Note";
+        public const string OMEEDS_NOTE = "Omeed's Note";
         private const string OMEED = "omeed";
         private const string EMPTY_BOOK_SPRITE = "big-book-shelf-focused-no-book";
         private const string CHALKBOARD = "chalkboard";

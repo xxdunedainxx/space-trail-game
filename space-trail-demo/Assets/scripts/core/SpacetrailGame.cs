@@ -29,6 +29,7 @@ public class SpacetrailGame : MonoBehaviour
         this.InitGamePreferences();
         StartCoroutine(this.WaitForEvents(this.doLast));
         this.InitializeDialogueManager();
+        this.AddClickManager();
     }
 
     private void doLast()
@@ -95,5 +96,11 @@ public class SpacetrailGame : MonoBehaviour
     private void InitializeCameraFollow()
     {
         this.gameObject.AddComponent<FollowPlayer>();
+    }
+
+    private void AddClickManager()
+    {
+        Camera.main.gameObject.AddComponent<ClickManager>();
+        Camera.main.gameObject.GetComponent<ClickManager>().cam = Camera.main;
     }
 }

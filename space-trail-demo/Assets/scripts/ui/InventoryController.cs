@@ -29,6 +29,8 @@ public class InventoryController : MonoBehaviour
     private Button close;
     private Button inventoryEscape;
     private List<UIInventoryItem> inventoryItems = new List<UIInventoryItem>();
+    private int inventorySlotsUsed = 0;
+    private int inventoryCapacity = 8;
 
     private Dialog saveDialogue = new Dialog(new List<string> { "Saved!" });
     private bool inventoryBuilt = false;
@@ -111,12 +113,37 @@ public class InventoryController : MonoBehaviour
         this.BuildInventory();
     }
 
-    private void BuildInventory()
+    public void RemoveItem(BasicItem item)
+    {
+        foreach(UIInventoryItem uItem in this.inventoryItems)
+        {
+            if(item.name() == uItem.associatedItem.name())
+            {
+                uItem.ResetObject();
+                this.inventorySlotsUsed -= 1;
+                break;
+            }
+        }
+    }
+
+    public void AddItem(BasicItem item)
+    {
+        UIInventoryItem uItem = this.inventoryItems[this.inventorySlotsUsed];
+        Debug.unityLogger.Log($"adding player inventory item {item.name()}");
+        uItem.associatedItem = item;
+        uItem.inventorySprite = Resources.Load<Sprite>($"Images/shared/items/{uItem.associatedItem.spriteName()}");
+        uItem.originalInvImage.sprite = uItem.inventorySprite;
+        this.inventorySlotsUsed += 1;
+    }
+
+    public void BuildInventory()
     {
         Debug.unityLogger.Log("building inventory...");
         List<BasicItem> playerInv = GameState.getGameState().playerReference.getPlayerState().inventory;
         GameObject[] inventoryObjects = GameObject.FindGameObjectsWithTag("inventoryItem");
         Debug.unityLogger.Log($"Inventory: {inventoryObjects} | Player inv : {playerInv} | count {playerInv.Count}");
+        this.inventoryCapacity = inventoryObjects.Length;
+
         for(int i = 0; i < inventoryObjects.Length; i++)
         {
             Image invImage = inventoryObjects[i].GetComponent<Image>();
@@ -133,7 +160,12 @@ public class InventoryController : MonoBehaviour
                 uiItem.associatedItem = playerInv[i];
                 uiItem.inventorySprite = Resources.Load<Sprite>($"Images/shared/items/{uiItem.associatedItem.spriteName()}");
                 uiItem.originalInvImage.sprite = uiItem.inventorySprite;
-            } 
+                this.inventorySlotsUsed += 1;
+            }
+            else
+            {
+                uiItem.PlaceholderSprite();
+            }
             uiItem.inventoryObjectButton.onClick.AddListener(uiItem.PrintItemInfo);
             this.inventoryItems.Add(uiItem);
         }

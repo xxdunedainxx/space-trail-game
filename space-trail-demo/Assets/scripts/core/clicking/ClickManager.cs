@@ -5,8 +5,7 @@ using UnityEngine;
 public class ClickManager : MonoBehaviour
 {
     [SerializeField]
-    private Camera cam;
-
+    public Camera cam;
 
     private void Update()
     {

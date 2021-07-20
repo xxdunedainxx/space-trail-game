@@ -51,6 +51,7 @@ public class GameState
     public class LevelState
     {
         public bool completed { get; set; } = false;
+        public Dictionary<string, bool> eventToggles; 
     }
 
     [Serializable]
@@ -58,5 +59,19 @@ public class GameState
     {
         public LevelState LECTURE_HALL = new LevelState();
         public LevelState HALLWAY = new LevelState();
+        public LevelState TA_OFFICE;
+
+        public LEVELS()
+        {
+            this.initTAOfficeState();
+        }
+
+        private void initTAOfficeState()
+        {
+            this.TA_OFFICE = new LevelState();
+            this.TA_OFFICE.eventToggles = new Dictionary<string, bool> {
+                {"gotLabKit", true }
+            };
+        }
     }
 }

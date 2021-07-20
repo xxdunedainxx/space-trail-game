@@ -47,7 +47,6 @@ public class UIInventoryItem : MonoBehaviour
         {
             manager.StartDialogue(this.defaultDialogue);
         }
-        
     }
 
     public void Enable()
@@ -61,5 +60,15 @@ public class UIInventoryItem : MonoBehaviour
         this.inventoryObjectButton.enabled = false;
         this.originalInvImage.enabled = false;
 
+    }
+
+    public void ResetObject() {
+        this.associatedItem = null;
+        this.PlaceholderSprite();
+    }
+
+    public void PlaceholderSprite()
+    {
+        this.originalInvImage.sprite = Resources.Load<Sprite>($"Images/shared/items/grey-question-mark");
     }
 }

@@ -217,6 +217,19 @@ public class player : MonoBehaviour
         }
     }
 
+    public bool IsPlayerMoving()
+    {
+        return (
+            Input.GetKeyDown(this.preferences.inputs.moveDown) ||
+            Input.GetKeyDown(this.preferences.inputs.moveDown) ||
+            Input.GetKeyDown(this.preferences.inputs.moveRight) ||
+            Input.GetKeyDown(this.preferences.inputs.moveLeft) ||
+            Input.GetKeyUp(this.preferences.inputs.moveLeft) ||
+            Input.GetKeyDown(this.preferences.inputs.moveUp) ||
+            Input.GetKeyDown(this.preferences.inputs.inventory)
+       );
+    }
+
     private void FixedUpdate()
     {
         float yValue = sideScrolling ? rb.velocity.y : my * this.state.movementSpeed;
@@ -272,6 +285,7 @@ public class player : MonoBehaviour
         Debug.unityLogger.Log($"Adding single item to inv {item.name()}");
         this.state.inventory.Add(item);
         this.printUserInventory();
+        this.inventoryController.AddItem(item);
     }
 
     public void addToInventory(BasicItemCollection items)
@@ -282,6 +296,7 @@ public class player : MonoBehaviour
             this.state.inventory.Add(item);
         }
         this.printUserInventory();
+        this.inventoryController.BuildInventory();
     }
 
     public void removeFromInventory(string itemID)
@@ -292,9 +307,12 @@ public class player : MonoBehaviour
             {
                 Debug.unityLogger.Log($"removing {item.name()} from inv");
                 this.state.inventory.Remove(item);
+                this.printUserInventory();
+                this.inventoryController.RemoveItem(item);
                 return;
             }
         }
+        
     }
 
     public List<BasicItem> getInventory()
