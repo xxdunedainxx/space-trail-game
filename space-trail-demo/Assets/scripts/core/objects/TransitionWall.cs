@@ -21,8 +21,6 @@ namespace Assets.scripts.core.objects
             {
                 Level.levelTransition(sceneToTransitionTo);
             }
-            
-            
         }
     }
 }

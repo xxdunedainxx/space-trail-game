@@ -60,7 +60,17 @@ public class PaperTossGame : MonoBehaviour
         }
         else
         {
-            this.CheckPlayerPosition();
+            //this.CheckPlayerPosition();
+        }
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        UnityEngine.Debug.unityLogger.Log($"Paper toss game {collision.gameObject.layer}, vs {Layers.PLAYER_LAYER_VALUE}");
+        if (collision.gameObject.layer == Layers.PLAYER_LAYER_VALUE)
+        {
+            this.RequestStartGame();
         }
     }
 

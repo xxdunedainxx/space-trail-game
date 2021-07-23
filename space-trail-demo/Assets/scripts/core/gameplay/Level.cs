@@ -47,9 +47,7 @@ public class Level
  
     public static void levelTransition(string toLevel)
     {
-        Persistence.PersistData();
-        GameState.getGameState().notReady();
-        SceneManager.LoadScene(toLevel);
+        LevelLoader.instance.levelTransition(toLevel);
     }
 
     private void applyVerticalGravity()

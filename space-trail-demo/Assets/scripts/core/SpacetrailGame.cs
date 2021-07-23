@@ -29,6 +29,8 @@ public class SpacetrailGame : MonoBehaviour
         this.InitGamePreferences();
         StartCoroutine(this.WaitForEvents(this.doLast));
         this.InitializeDialogueManager();
+        this.InitializeLevelTransitioner();
+        this.InitLevelTransitioner();
         this.AddClickManager();
     }
 
@@ -75,6 +77,11 @@ public class SpacetrailGame : MonoBehaviour
         GamePreferences.setGamePreferences(Persistence.persistenceLayer.prefs);
     }
 
+    private void InitLevelTransitioner()
+    {
+        this.gameObject.AddComponent<LevelLoader>();
+    }
+
     private void InitPlayerState()
     {
 
@@ -91,6 +98,12 @@ public class SpacetrailGame : MonoBehaviour
             this.gameObject.AddComponent<DialogueWriter>();
             this.gameObject.AddComponent<DialogManager>();
         }
+    }
+
+
+    private void InitializeLevelTransitioner()
+    {
+        this.gameObject.AddComponent<LevelTransitionHandler>();
     }
 
     private void InitializeCameraFollow()

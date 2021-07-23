@@ -87,6 +87,7 @@
     <Compile Include="Assets\scripts\core\objects\items\BasicItemCollection.cs" />
     <Compile Include="Assets\scripts\core\const\Directions.cs" />
     <Compile Include="Assets\scripts\core\const\MovementValues.cs" />
+    <Compile Include="Assets\scripts\ui\LevelTransitionHandler.cs" />
     <Compile Include="Assets\scripts\ui\UIInventoryItem.cs" />
     <Compile Include="Assets\scripts\core\objects\items\BasicItem.cs" />
     <Compile Include="Assets\scripts\core\dialogue\FormatSentence.cs" />
@@ -108,7 +109,7 @@
     <Compile Include="Assets\scripts\core\events\ObjectObtainedEvent.cs" />
     <Compile Include="Assets\scripts\core\objects\Bookshelf.cs" />
     <Compile Include="Assets\scripts\core\events\IEventEmitter.cs" />
-    <Compile Include="Assets\scripts\ui\LevelTransitionHandler.cs" />
+    <Compile Include="Assets\scripts\core\gameplay\LevelLoader.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
