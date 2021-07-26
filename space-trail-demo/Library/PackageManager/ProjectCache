@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637583772239830552
-    m_Hash: 2433510584
+      ticks: 637628563165339837
+    m_Hash: 3251809716
   m_LockFileStatus:
     m_FilePath: D:/unity/spacetrail/spacetrailgit/space-trail-game/space-trail-demo/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637583772239909438
-    m_Hash: 2442662633
+      ticks: 637628563165339837
+    m_Hash: 3704970174
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_PackageAssets:
