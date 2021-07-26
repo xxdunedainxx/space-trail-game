@@ -58,4 +58,12 @@ public class Level
         p.sideScrolling = true;
     }
 
+    public static void DisableLevelObjects(List<string> objects)
+    {
+        foreach(string obj in objects)
+        {
+            GameObject.Find(obj).SetActive(false);
+        }
+    }
+
 }

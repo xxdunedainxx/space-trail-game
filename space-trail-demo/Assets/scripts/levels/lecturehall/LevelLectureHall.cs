@@ -19,6 +19,7 @@ namespace Assets.scripts.levels.lecturehall
         private const string OMEED = "omeed";
         private const string EMPTY_BOOK_SPRITE = "big-book-shelf-focused-no-book";
         private const string CHALKBOARD = "chalkboard";
+        private List<string> Npcs = new List<string> {"omeed", "professor","npc1", "npc2", "npc3", "npc4"};
 
         public bool levelComplete = false;
 
@@ -93,6 +94,7 @@ namespace Assets.scripts.levels.lecturehall
                 this.invisibleWall.Blocking = false;
                 this.sparkle.disableAnimation();
                 this.bookShelf.makeBookshelfEmpty();
+                Level.DisableLevelObjects(this.Npcs);
             }
             else
             {
