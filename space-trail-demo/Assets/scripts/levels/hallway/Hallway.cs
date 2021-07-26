@@ -10,6 +10,8 @@ using Assets.scripts.core.gameplay;
 
 public class Hallway : Level
 {
+    private static Vector3 taOfficeStartingPoint = new Vector3(0.775f, -0.181f, 0);
+
     public Hallway() : base("Hallway", false)
     {
         Debug.unityLogger.Log("hallway constructor");
@@ -21,6 +23,7 @@ public class Hallway : Level
         if(GameState.getGameState().LAST_LEVEL == LevelFactory.TA_OFFICE)
         {
             Debug.unityLogger.Log("Last level was TA Office, adjusting player position");
+            GameState.getGameState().playerReference.adjustPlayerPosition(Hallway.taOfficeStartingPoint);
         }
     }
     
