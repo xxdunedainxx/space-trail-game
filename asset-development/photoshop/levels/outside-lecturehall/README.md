@@ -25,5 +25,5 @@ Longer Buildings : 300px width  x 275px height
 Pavement: 40px width 
 Building Doors 30 px width? 
 Circular pavement under the fountain : around 295px width / height
-
+Multi-directional Wood sign : 75 px height, 35 px width
 trees 100px height, 60 px width
