@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Assets.scripts.core.events;
+using System;
 
 public class npc : MonoBehaviour, IClickable
 {
@@ -25,6 +26,10 @@ public class npc : MonoBehaviour, IClickable
     [SerializeField]
     public Sprite interactImageEast;
 
+    public List<IEvent> events = null;
+    public List<EventLookupInfo> eventLookups = null;
+    private MovementController _moveController;
+
     public void Awake()
     {
         this.interactLayer = Layers.PLAYER_LAYER;
@@ -37,6 +42,10 @@ public class npc : MonoBehaviour, IClickable
         {
             this.dialog.sentences = new List<string> {"..."};
         }
+
+        this.gameObject.AddComponent<MovementController>();
+        this._moveController = this.gameObject.GetComponent<MovementController>();
+        this._moveController.objectToControl = this.gameObject;
     }
 
     public bool CanInteract()
@@ -115,5 +124,62 @@ public class npc : MonoBehaviour, IClickable
         newSentencesList.AddRange(this.dialog.sentences);
 
         this.dialog.sentences = newSentencesList;
+    }
+
+    public void ExecuteEventListeners()
+    {
+        if (this.events != null)
+        {
+            foreach (IEvent even in this.events)
+            {
+                if (even.active())
+                {
+                    Debug.unityLogger.Log($"Event {even.name()} IS active");
+                    even.execute();
+                    even.setEventInactive();
+                }
+                else
+                {
+                    Debug.unityLogger.Log($"Event {even.name()} is not active");
+                }
+            }
+        }
+        if(this.eventLookups != null)
+        {
+            foreach(EventLookupInfo info in this.eventLookups)
+            {
+                EventSubscriptionFactory.instance.ExecuteEvent(info);
+            }
+        }
+    }
+
+    public void AddEventListener(IEvent e)
+    {
+        if(this.events == null)
+        {
+            this.events = new List<IEvent>();
+        }
+
+        this.events.Add(e);
+    }
+
+    public void AddEventLookup(EventLookupInfo info)
+    {
+        if(this.eventLookups == null)
+        {
+            this.eventLookups = new List<EventLookupInfo>();
+        }
+        this.eventLookups.Add(info);
+    }
+
+    public void IgnorePlayerCollision()
+    {
+        Physics2D.IgnoreCollision(GameState.getGameState().playerReference.gameObject.GetComponent<BoxCollider2D>(), this.gameObject.GetComponent<BoxCollider2D>());
+    }
+
+    public void Move(float xdestination, float ydestination, Vector2 movementSpeed, Action endMovementCallBack = null, int waitSeconds = 0)
+    {
+        this.IgnorePlayerCollision();
+        StartCoroutine(this._moveController.Move(xdestination, ydestination, movementSpeed, endMovementCallBack, waitSeconds));
     }
 }

@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Assets.scripts.core;
 using Assets.scripts.core.objects;
+using Assets.scripts.core.events;
 
 namespace Assets.scripts.levels.lecturehall
 {
@@ -17,17 +18,17 @@ namespace Assets.scripts.levels.lecturehall
         private ObjectAnimationHandler sparkle;
         private BasicNote noteItem;
         private BasicBook bookItem;
-        private NoteEvent nEvent;
+        private EventLookupInfo nEventInfo;
 
-        public BookEvent(BasicBook book, BasicNote note, Bookshelf bookShelf, ObjectAnimationHandler sparkle, ref NoteEvent nEvent) : base()
+        public BookEvent(BasicBook book, BasicNote note, Bookshelf bookShelf, ObjectAnimationHandler sparkle, EventLookupInfo nEventInfo) : base()
         {
             this.bookShelfRef = bookShelf;
             this.bookShelfRef.attachedEvent = this;
             this.sparkle = sparkle;
             this.bookItem = book;
             this.noteItem = note;
-            this.nEvent = nEvent;
-            this.nEvent.setEventInactive();
+            this.nEventInfo = nEventInfo;
+            EventSubscriptionFactory.instance.GetEvent(nEventInfo).setEventInactive();
         }
 
         public override void execute()
@@ -46,7 +47,7 @@ namespace Assets.scripts.levels.lecturehall
             this.setEventInactive();
 
             this.noteDialogue(this.noteItem);
-            this.nEvent.setEventActive();
+            EventSubscriptionFactory.instance.GetEvent(nEventInfo).setEventActive();
         }
 
         void noteDialogue(BasicNote n)

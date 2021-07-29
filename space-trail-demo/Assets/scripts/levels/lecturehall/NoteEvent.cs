@@ -16,6 +16,7 @@ namespace Assets.scripts.levels.lecturehall
 
         public BasicNote noteItem;
         private InvisibleBlock invisibleWall;
+        private Dialog noteFoundDialogue = new Dialog(new List<string> { "Oh... it looks like you found my note in the book, i'll be taking that" });
 
         public NoteEvent(BasicNote note, ref InvisibleBlock invisibleWall) : base()
         {
@@ -25,6 +26,7 @@ namespace Assets.scripts.levels.lecturehall
 
         public override void execute()
         {
+            DialogManager.instance.StartDialogue(this.noteFoundDialogue);
             player p = GameState.getGameState().playerReference;
             p.removeFromInventory(this.noteItem.name());
             Debug.unityLogger.Log($"Setting invisible wall to background image {Layers.BACKGROUND_IMAGE_LAYER_VALUE}");

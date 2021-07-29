@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using Assets.scripts.core;
 using Assets.scripts.core.objects;
 using Assets.scripts.core.objects;
+using Assets.scripts.core.events;
 using Assets.scripts.core.dialogue;
 
 namespace Assets.scripts.levels.lecturehall
@@ -28,6 +29,7 @@ namespace Assets.scripts.levels.lecturehall
         private ObjectAnimationHandler sparkle;
         private BookEvent bEvent;
         private NoteEvent nEvent;
+        private EventLookupInfo nEventInfo = new EventLookupInfo("omeedNoteEvent", "clickEvents");
         private BasicBook metereologyBook = new BasicBook(BOOK_TITLE);
         private BasicNote omeedsNote = new BasicNote(OMEEDS_NOTE);
         private ChalkboardDialogue chalkBoard;
@@ -70,6 +72,9 @@ namespace Assets.scripts.levels.lecturehall
             this.omed = GameObject.Find(OMEED).GetComponent<Omeed>();
 
             this.nEvent = new NoteEvent(this.omeedsNote, ref this.invisibleWall);
+
+            EventSubscriptionFactory.instance.AddEvent(nEventInfo, this.nEvent);
+
             if (GameState.getGameState().levelState.LECTURE_HALL.completed == true)
             {
                 this.bookShelf.attachedEvent = new DialogueEvent(new List<string>() { "Looks like a normal book shelf..." }, "bookshelf-dialogue");
@@ -77,15 +82,11 @@ namespace Assets.scripts.levels.lecturehall
             }
             else
             {
-                this.bEvent = new BookEvent(this.metereologyBook, this.omeedsNote, this.bookShelf, this.sparkle, ref this.nEvent);
+                this.bEvent = new BookEvent(this.metereologyBook, this.omeedsNote, this.bookShelf, this.sparkle, this.nEventInfo);
             }
             GameObject.Find(CHALKBOARD).AddComponent<ChalkboardDialogue>();
             this.chalkBoard = GameObject.Find(CHALKBOARD).GetComponent<ChalkboardDialogue>();
             this.chalkBoard.lectureHallRef = this;
-
-
-            this.omed.nEvent = this.nEvent;
-            Debug.unityLogger.Log("Done initializing lecture hall");
 
             if (GameState.getGameState().levelState.LECTURE_HALL.completed == true)
             {
@@ -98,6 +99,8 @@ namespace Assets.scripts.levels.lecturehall
             }
             else
             {
+                this.omed.AddEventLookup(this.nEventInfo);
+                Debug.unityLogger.Log("Done initializing lecture hall");
                 this.lectureHallCutScene = new CutScene(
                     new Dialog(this.cutSceneDialogue, 0.1f)
                 );
