@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/outside-lecturehall.unity
     guid: eedaeb0c9d595084e8114c149044219c
+  - enabled: 1
+    path: Assets/transition-to-town.unity
+    guid: 3e60fb2095689ac48a05961fbba71bce
   m_configObjects: {}

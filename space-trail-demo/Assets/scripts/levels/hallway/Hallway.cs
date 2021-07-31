@@ -11,11 +11,15 @@ using Assets.scripts.levels.lecturehall;
 
 public class Hallway : Level
 {
-    private static Vector3 taOfficeStartingPoint = new Vector3(0.775f, -0.181f, 0);
     private Omeed omed;
+    
     public Hallway() : base("Hallway", false)
     {
-
+        this.transitionHandlers = new Dictionary<string, Vector3>
+        {
+            {LevelFactory.TA_OFFICE,  new Vector3(0.775f, -0.181f, 0)},
+            {LevelFactory.OUTSIDE_LECTUREHALL,  new Vector3(1.551f, -0.711f, 0)}
+        };
     }
 
     public override void startLevel() {
@@ -55,11 +59,9 @@ public class Hallway : Level
     public override void prepareLevel()
     {
         Debug.unityLogger.Log($"Last level: {GameState.getGameState().LAST_LEVEL}");
-        if(GameState.getGameState().LAST_LEVEL == LevelFactory.TA_OFFICE)
-        {
-            Debug.unityLogger.Log("Last level was TA Office, adjusting player position");
-            GameState.getGameState().playerReference.adjustPlayerPosition(Hallway.taOfficeStartingPoint);
-        }
+        string lastLevel = GameState.getGameState().LAST_LEVEL;
+        Debug.unityLogger.Log($"Last level was {lastLevel}, adjusting player position");
+        this.transitionHandler();
     }
     
 
