@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/outside-lecturehall.unity
+- path: Assets/lecturehall.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
