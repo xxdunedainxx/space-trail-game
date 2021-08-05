@@ -32,7 +32,6 @@ namespace Assets.scripts.levels.lecturehall
         private void interact(Dialog d)
         {
             DialogManager manager = DialogManager.instance;
-            GameState.getGameState().playerReference.removeFromInventory(LevelLectureHall.OMEEDS_NOTE);
             manager.StartDialogue(d);
         }
     }

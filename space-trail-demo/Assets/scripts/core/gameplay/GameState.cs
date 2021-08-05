@@ -12,6 +12,7 @@ public class GameState
     public LEVELS levelState = new LEVELS();
     private bool ready = false;
     public string LAST_LEVEL = "";
+    public string STORY_LINE_CHOSEN = "";
 
     public GameState()
     {

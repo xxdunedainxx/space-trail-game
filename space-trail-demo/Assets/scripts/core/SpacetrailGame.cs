@@ -11,6 +11,7 @@ public class SpacetrailGame : MonoBehaviour
     [SerializeField]
     string level;
     Level lvl;
+    public static SpacetrailGame instance { get; private set; }
 
     private void getLevel()
     {
@@ -18,8 +19,20 @@ public class SpacetrailGame : MonoBehaviour
         this.lvl = LevelFactory.FetchLevel(this.level);
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
+
+        // Start is called before the first frame update
+        void Start()
     {
         this.getLevel();
         Persistence.InitPersistence();
