@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+
 public class MovementController : MonoBehaviour
 {
     private bool isMoving = false;
@@ -10,6 +11,7 @@ public class MovementController : MonoBehaviour
     private float movementStartLocationY = 0;
     private float xdest = 0;
     private float ydest = 0;
+    private int waitSeconds = 0;
     private Vector2 movementSpeed;
     private Action endMovementCallBack;
     public GameObject objectToControl;
@@ -17,8 +19,8 @@ public class MovementController : MonoBehaviour
 
     private bool CheckMovementDistance()
     {
-        //Debug.unityLogger.Log($"{Mathf.Abs(this.movementStartLocationX) - Mathf.Abs(this.transform.position.x)}, {Mathf.Abs(this.movementStartLocationX)}, {Mathf.Abs(this.transform.position.x)}");
-        if (Math.Abs(Mathf.Abs(this.movementStartLocationX) - Mathf.Abs(this.transform.position.x)) >= Math.Abs(this.xdest))
+        Debug.unityLogger.Log($"Check move distance: {Mathf.Abs(this.movementStartLocationX) - Mathf.Abs(this.transform.position.x)}, {Mathf.Abs(this.movementStartLocationX)}, {Mathf.Abs(this.transform.position.x)}, {Math.Abs(this.xdest)}");
+        if ((Math.Abs(Mathf.Abs(this.movementStartLocationX) - Mathf.Abs(this.transform.position.x)) >= Math.Abs(this.xdest)) && (Math.Abs(Mathf.Abs(this.movementStartLocationY) - Mathf.Abs(this.transform.position.y)) >= Math.Abs(this.ydest)))
         {
             return true;
         }
@@ -45,6 +47,7 @@ public class MovementController : MonoBehaviour
     public IEnumerator Move(float xdestination, float ydestination, Vector2 movementSpeed, Action endMovementCallBack = null, int waitSeconds = 0)
     {
         yield return new WaitForSeconds(waitSeconds);
+        this.waitSeconds = waitSeconds;
         this.isMoving = true;
         this.movementStartLocationX = this.transform.position.x;
         this.movementStartLocationY = this.transform.position.y;
@@ -53,5 +56,20 @@ public class MovementController : MonoBehaviour
         this.movementSpeed = movementSpeed;
         this.objectToControl.GetComponent<Rigidbody2D>().velocity = movementSpeed;
         this.endMovementCallBack = endMovementCallBack;
+    }
+
+    public void RandomizedMove(float maxX, float maxY, Action endMovementCallBack = null, int waitSeconds = 0)
+    {
+        float randX = UnityEngine.Random.RandomRange(0, maxX);
+        float randY = UnityEngine.Random.RandomRange(0, maxY);
+
+        float randXVector = UnityEngine.Random.RandomRange(0, randX);
+        float randYVector = UnityEngine.Random.RandomRange(0, randY);
+
+        Vector2 movementSpeed = new Vector2(randXVector, randYVector);
+
+        Debug.unityLogger.Log($"Randomized move generated x {randX}, and y {randY}, from x {randX}, and y {randY}");
+
+        StartCoroutine(this.Move(randX, randY, movementSpeed, endMovementCallBack, waitSeconds));
     }
 }
