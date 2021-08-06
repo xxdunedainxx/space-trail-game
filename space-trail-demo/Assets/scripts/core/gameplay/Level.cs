@@ -11,6 +11,7 @@ public class Level
     public string name;
     public bool isVerticalLevel;
     public bool requiresDialogue;
+    protected Dictionary<string, Vector3> transitionHandlers = null;
 
     public Level(string name, bool isVerticalLevel = false, bool dialogue = true)
     {
@@ -24,6 +25,7 @@ public class Level
     public virtual void prepareLevel()
     {
         Debug.unityLogger.Log("empty preperation... nothing to do");
+        this.transitionHandler();
 
     }
 
@@ -56,6 +58,22 @@ public class Level
         p.gameObject.GetComponent<Rigidbody2D>().gravityScale = 5;
         p.getPlayerState().movementSpeed = 5;
         p.sideScrolling = true;
+    }
+
+    public static void DisableLevelObjects(List<string> objects)
+    {
+        foreach(string obj in objects)
+        {
+            GameObject.Find(obj).SetActive(false);
+        }
+    }
+
+    public virtual void transitionHandler()
+    {
+        if(this.transitionHandlers != null && this.transitionHandlers.ContainsKey(GameState.getGameState().LAST_LEVEL))
+        {
+            GameState.getGameState().playerReference.adjustPlayerPosition(this.transitionHandlers[GameState.getGameState().LAST_LEVEL]);
+        }
     }
 
 }

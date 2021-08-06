@@ -86,6 +86,16 @@ public class player : MonoBehaviour
         }
     }
 
+    public void adjustPlayerPosition(float x, float y, float z)
+    {
+        this.transform.position = new Vector3(x, y, z);
+    }
+
+    public void adjustPlayerPosition(Vector3 nPosition)
+    {
+        this.transform.position = nPosition;
+    }
+
     // Start is called before the first frame update
     void Start()
     {

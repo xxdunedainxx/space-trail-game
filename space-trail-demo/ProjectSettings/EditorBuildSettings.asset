@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scenes/intro.unity
+    path: 
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/lecturehall.unity
@@ -17,4 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/hallway-room.unity
     guid: 475416b57917f32428e60d523d23c7b7
+  - enabled: 1
+    path: Assets/outside-lecturehall.unity
+    guid: eedaeb0c9d595084e8114c149044219c
+  - enabled: 1
+    path: Assets/transition-to-town.unity
+    guid: 3e60fb2095689ac48a05961fbba71bce
   m_configObjects: {}

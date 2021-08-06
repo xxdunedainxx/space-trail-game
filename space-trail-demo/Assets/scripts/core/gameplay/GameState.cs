@@ -12,6 +12,7 @@ public class GameState
     public LEVELS levelState = new LEVELS();
     private bool ready = false;
     public string LAST_LEVEL = "";
+    public string STORY_LINE_CHOSEN = "";
 
     public GameState()
     {
@@ -58,19 +59,29 @@ public class GameState
     public class LEVELS
     {
         public LevelState LECTURE_HALL = new LevelState();
-        public LevelState HALLWAY = new LevelState();
+        public LevelState HALLWAY;
         public LevelState TA_OFFICE;
 
         public LEVELS()
         {
             this.initTAOfficeState();
+            this.initHallwayState();
         }
 
         private void initTAOfficeState()
         {
             this.TA_OFFICE = new LevelState();
             this.TA_OFFICE.eventToggles = new Dictionary<string, bool> {
-                {"gotLabKit", true }
+                {"gotLabKit", false }
+            };
+        }
+
+        private void initHallwayState()
+        {
+            this.HALLWAY = new LevelState();
+            this.HALLWAY.eventToggles = new Dictionary<string, bool>
+            {
+                {"firstTimeLoad",true}
             };
         }
     }
