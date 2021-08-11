@@ -4,10 +4,25 @@ using UnityEngine;
 
 public class ClickManager : MonoBehaviour
 {
+
+    public static ClickManager instance { get; private set; }
+
     [SerializeField]
     public Camera cam;
 
-    private void Update()
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            ClickManager.instance = this;
+        }
+    }
+
+        private void Update()
     {
         if(Input.GetMouseButtonDown(0))
         {
@@ -24,7 +39,6 @@ public class ClickManager : MonoBehaviour
                 Debug.unityLogger.Log($"Clicked {clickable} { hit.collider.gameObject}");
                 clickable?.click();
             }
-
         }
     }
 }

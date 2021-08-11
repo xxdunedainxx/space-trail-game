@@ -132,11 +132,11 @@ public class npc : MonoBehaviour, IClickable
         {
             foreach (IEvent even in this.events)
             {
-                if (even.active())
+                if (even.active() == true)
                 {
+                   
                     Debug.unityLogger.Log($"Event {even.name()} IS active");
                     even.execute();
-                    even.setEventInactive();
                 }
                 else
                 {
@@ -146,10 +146,22 @@ public class npc : MonoBehaviour, IClickable
         }
         if(this.eventLookups != null)
         {
+            EventSubscriptionFactory eventFactory = EventSubscriptionFactory.instance;
+            
             foreach(EventLookupInfo info in this.eventLookups)
             {
-                EventSubscriptionFactory.instance.ExecuteEvent(info);
+               
+                if (eventFactory.CanExecuteEvent(info))
+                {
+                    Debug.unityLogger.Log($"Executing event {info}");
+                    eventFactory.ExecuteEvent(info);
+                }
+                else
+                {
+                    Debug.unityLogger.Log($"SKIPPING event {info}");
+                }
             }
+            eventFactory.CheckEventEnableQueues();
         }
     }
 

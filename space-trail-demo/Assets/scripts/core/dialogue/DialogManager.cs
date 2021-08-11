@@ -15,7 +15,8 @@ public sealed class DialogManager : MonoBehaviour
     public TextboxWithButton textBoxReference = null;
     public YesNoButtons yesNoBtns = null;
     public Canvas canvasRef = null;
-    public Dialog currentDialogue;
+    public Dialog currentDialogue = null;
+    public AdvancedDialogue currentAdvancedDialogue = null;
     private Action endDialogueCallBack = null;
     private bool finishedLastSentence = false;
 
@@ -73,21 +74,34 @@ public sealed class DialogManager : MonoBehaviour
         this.FinishTextWriter();
     }
 
-    public void StartDialogue(Dialog dialogue, Action endDialogueCallback = null, bool yesNoButtonsEnabled = false) {
+    public void PrepareDialogue(Action endDialogueCallback, bool yesNoButtonsEnabled)
+    {
         this.EndDialogue();
-        this.sentences.Clear();
         this.endDialogueCallBack = endDialogueCallback;
-        this.currentDialogue = dialogue;
-        foreach(string sentence in dialogue.sentences)
-        {
-            sentences.Enqueue(sentence);
-        }
-        Debug.unityLogger.Log($"starting dialogue {dialogue.sentences}");
         this.textBoxReference.enable();
+
 
         if (yesNoButtonsEnabled)
         {
             this.yesNoBtns.enable();
+        }
+
+    }
+
+    public void StartDialogue(AdvancedDialogue dialogue, Action endDialogueCallback = null, bool yesNoButtonsEnabled = false) {
+        this.PrepareDialogue(endDialogueCallback, yesNoButtonsEnabled);
+        this.currentAdvancedDialogue = dialogue;
+        this.DisplayNextSentence();
+    }
+
+    public void StartDialogue(Dialog dialogue, Action endDialogueCallback = null, bool yesNoButtonsEnabled = false) {
+        this.PrepareDialogue(endDialogueCallback, yesNoButtonsEnabled);
+
+        this.currentDialogue = dialogue;
+
+        foreach (string sentence in dialogue.sentences)
+        {
+            sentences.Enqueue(sentence);
         }
 
         this.DisplayNextSentence();
@@ -95,49 +109,89 @@ public sealed class DialogManager : MonoBehaviour
 
     public void DisplayNextSentence()
     {
-        if (this.currentDialogue.dialogueTime == 0)
+        if(this.currentDialogue != null)
         {
-            if (sentences.Count <= 0)
-            {
-                this.EndDialogue();
-            }
-            else
-            {
-                string sentence = this.sentences.Dequeue();
-                this.textBoxReference.textBox.text = sentence;
-            }
+            this.PrintRegularDialogue();
+        } else if(this.currentAdvancedDialogue != null)
+        {
+            this.PrintAdvancedDialogue();
         }
         else
         {
-            if (this.writer.AutoCompletedLast())
-            {
-                this.writer.UnsetAutoComplete();
-            }
+            Debug.unityLogger.Log("ooo no dialogues to print :(");
+        }
 
-            if (this.writer.IsWriting())
+    }
+    
+    public void PrintAdvancedDialogue()
+    {
+        if (this.writer.IsWriting())
+        {
+            this.writer.SetToEnd();
+        }
+        else if (! this.currentAdvancedDialogue.RunNextDialogue())
+        {
+            this.CheckWriterBeforeEnd();
+        }
+    }
+
+    private void CheckWriterBeforeEnd()
+    {
+        if (this.writer.IsWriting())
+        {
+            this.writer.SetToEnd();
+        }
+        else
+        {
+            this.EndDialogue();
+        }
+    }
+
+    public void PrintRegularDialogue()
+    {
+        if (sentences.Count <= 0)
+        {
+            this.CheckWriterBeforeEnd();
+        }
+        else
+        {
+            string sentence = this.sentences.Dequeue();
+            if (this.currentDialogue.dialogueTime == 0)
             {
-                Debug.unityLogger.Log("WRITER IS WRITING??? Setting to end");
-                this.writer.SetToEnd();
+                this.PrintSentence(sentence);
             }
             else
             {
-
-                if (sentences.Count <= 0)
-                {
-                    this.EndDialogue();
-                }
-                else
-                {
-                    string sentence = this.sentences.Dequeue();
-                    this.writer.PrintSentence(sentence, this.currentDialogue.dialogueTime);
-                }
+                this.PrintSentence(sentence, this.currentDialogue.dialogueTime);
             }
         }
+    }
+
+    public void PrintSentence(string sentence, float printTime)
+    {
+        if (this.writer.AutoCompletedLast())
+        {
+            this.writer.UnsetAutoComplete();
+        }
+
+        if (this.writer.IsWriting())
+        {
+            this.writer.SetToEnd();
+        }
+        else
+        {
+            this.writer.PrintSentence(sentence, printTime);
+        }
+    }
+
+    public void PrintSentence(string sentence) {
+       this.textBoxReference.textBox.text = sentence;
     }
 
     public void EndDialogue()
     {
         Debug.unityLogger.Log("finished dilgoue");
+        this.currentDialogue = null;
         this.sentences.Clear();
         this.writer.UnsetVars();
         this.textBoxReference.disable();

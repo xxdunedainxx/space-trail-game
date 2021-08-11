@@ -34,5 +34,13 @@ namespace Assets.scripts.levels.lecturehall
             DialogManager manager = DialogManager.instance;
             manager.StartDialogue(d);
         }
+
+        public void LeftRightAnimation()
+        {
+            Debug.unityLogger.Log("omeed left right animation..");
+            Animator anim = this.GetComponent<Animator>();
+            anim.enabled = true;
+            anim.Play("OmeedAnimationRightLeftLook", -1, 0f);
+        }
     }
 }

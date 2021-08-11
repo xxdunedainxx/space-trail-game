@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assets.scripts.core.events;
 
 namespace Assets.scripts.core
 {
@@ -13,6 +14,6 @@ namespace Assets.scripts.core
         void execute();
         void setEventInactive();
         void setEventActive();
-        List<IEvent> contingentEvents();
+        List<EventLookupInfo> contingentEvents();
     }
 }

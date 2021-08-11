@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using Assets.scripts.core.events;
 
 namespace Assets.scripts.core.objects
 {
@@ -11,10 +12,10 @@ namespace Assets.scripts.core.objects
     {
 
         private List<string> sentences;
-        private Dialog dialog;
+        protected Dialog dialog;
         private string eventName;
         private bool isActive;
-        List<IEvent> dependentEvents;
+        List<EventLookupInfo> dependentEvents;
 
 
         public DialogueEvent(List<string> sentences,string name, float dialogueTime = 0)
@@ -44,7 +45,7 @@ namespace Assets.scripts.core.objects
             return this.isActive;
         }
 
-        public virtual List<IEvent> contingentEvents()
+        public virtual List<EventLookupInfo> contingentEvents()
         {
             return this.dependentEvents;
         }
@@ -53,6 +54,11 @@ namespace Assets.scripts.core.objects
         {
             DialogManager manager = DialogManager.instance;
             manager.StartDialogue(this.dialog);
+        }
+
+        public void OverrideDialogue(Dialog d)
+        {
+            this.dialog = d;
         }
     }
 }

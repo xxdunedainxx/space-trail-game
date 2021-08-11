@@ -19,8 +19,9 @@ namespace Assets.scripts.levels.lecturehall
         private BasicNote noteItem;
         private BasicBook bookItem;
         private EventLookupInfo nEventInfo;
+        private EventLookupInfo preNoteEventInfo;
 
-        public BookEvent(BasicBook book, BasicNote note, Bookshelf bookShelf, ObjectAnimationHandler sparkle, EventLookupInfo nEventInfo) : base()
+        public BookEvent(BasicBook book, BasicNote note, Bookshelf bookShelf, ObjectAnimationHandler sparkle, EventLookupInfo nEventInfo, EventLookupInfo prenevent) : base()
         {
             this.bookShelfRef = bookShelf;
             this.bookShelfRef.attachedEvent = this;
@@ -28,7 +29,9 @@ namespace Assets.scripts.levels.lecturehall
             this.bookItem = book;
             this.noteItem = note;
             this.nEventInfo = nEventInfo;
+            this.preNoteEventInfo = prenevent;
             EventSubscriptionFactory.instance.GetEvent(nEventInfo).setEventInactive();
+            EventSubscriptionFactory.instance.GetEvent(preNoteEventInfo).setEventActive();
         }
 
         public override void execute()
@@ -48,6 +51,7 @@ namespace Assets.scripts.levels.lecturehall
 
             this.noteDialogue(this.noteItem);
             EventSubscriptionFactory.instance.GetEvent(nEventInfo).setEventActive();
+            EventSubscriptionFactory.instance.GetEvent(preNoteEventInfo).setEventInactive();
         }
 
         void noteDialogue(BasicNote n)

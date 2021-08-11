@@ -10,13 +10,15 @@ namespace Assets.scripts.core.dialogue
 {
     public sealed class DialogueWriter : MonoBehaviour
     {
+        public static float reasonableWriterSpeed = 0.1f;
+
         public Text textBox;
 
         public static DialogueWriter instance { get; private set; }
 
         public string sentenceToPrint;
         private float timer;
-        private float timePerCharacter = 0.1f;
+        private float timePerCharacter = DialogueWriter.reasonableWriterSpeed;
         private int characterIndex = 0;
         private bool isWriting = false;
         private bool writeToEnd = false;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Assets.scripts.core.events
 {
@@ -10,6 +11,23 @@ namespace Assets.scripts.core.events
     {
         private Dictionary<string, Dictionary<string, IEvent>> _subs = new Dictionary<string, Dictionary<string, IEvent>>();
         public static EventSubscriptionFactory instance { get; private set; } = new EventSubscriptionFactory();
+        public Queue<EventLookupInfo> eventEnableQueue = new Queue<EventLookupInfo>();
+        public Queue<EventLookupInfo> dependentEventEnableQueue = new Queue<EventLookupInfo>();
+
+        public void CheckEnableQueue()
+        {
+            while(this.eventEnableQueue.Count > 0)
+            {
+                EventLookupInfo info = this.eventEnableQueue.Dequeue();
+                Debug.unityLogger.Log($"re-enabling {info}");
+                this.GetEvent(info).setEventActive();
+            }
+        }
+
+        public void CheckEventEnableQueues()
+        {
+            this.CheckEnableQueue();
+        }
 
         private EventSubscriptionFactory()
         {
@@ -50,17 +68,24 @@ namespace Assets.scripts.core.events
             if(this._subs.ContainsKey(eventType) && this._subs[eventType].ContainsKey(eventName))
             {
                 this._subs[eventType][eventName].execute();
-                this._subs[eventType][eventName].setEventInactive();
             }
         }
 
         public void ExecuteEvent(EventLookupInfo info)
         {
-            if (this._subs.ContainsKey(info.eventType) && this._subs[info.eventType].ContainsKey(info.eventName))
+            if (this.CanExecuteEvent(info))
             {
                 this._subs[info.eventType][info.eventName].execute();
-                this._subs[info.eventType][info.eventName].setEventInactive();
             }
+        }
+
+        public bool CanExecuteEvent(EventLookupInfo info)
+        {
+            return (
+                this._subs.ContainsKey(info.eventType) && 
+                this._subs[info.eventType].ContainsKey(info.eventName) && 
+                this._subs[info.eventType][info.eventName].active()
+            );
         }
     }
 
@@ -73,6 +98,11 @@ namespace Assets.scripts.core.events
         {
             this.eventName = name;
             this.eventType = type;
+        }
+
+        public override string ToString()
+        {
+            return $"Event name: {this.eventName}, Event Type: {this.eventType}";
         }
     }
 }

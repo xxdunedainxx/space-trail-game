@@ -10,7 +10,8 @@ namespace Assets.scripts.core.dialogue
 
     class CutScene
     {
-        public Dialog dialogue;
+        public Dialog dialogue = null;
+        public AdvancedDialogue advancedDialogue = null;
         private player playerRef;
 
         public CutScene()
@@ -24,6 +25,12 @@ namespace Assets.scripts.core.dialogue
             this.GetPlayerReference();
         }
 
+        public CutScene(AdvancedDialogue d)
+        {
+            this.advancedDialogue = d;
+            this.GetPlayerReference();
+        }
+
         private void GetPlayerReference()
         {
             this.playerRef = GameState.getGameState().playerReference;
@@ -33,7 +40,13 @@ namespace Assets.scripts.core.dialogue
         {
             this.FreezePlayer();
             DialogManager dialogue = DialogManager.instance;
-            dialogue.StartDialogue(this.dialogue, this.UnfreezePlayer);
+            if (this.dialogue != null)
+            {
+                dialogue.StartDialogue(this.dialogue, this.UnfreezePlayer);
+            } else if(this.advancedDialogue != null)
+            {
+                dialogue.StartDialogue(this.advancedDialogue, this.UnfreezePlayer);
+            }
         }
 
 

@@ -127,6 +127,6 @@ public class SpacetrailGame : MonoBehaviour
     private void AddClickManager()
     {
         Camera.main.gameObject.AddComponent<ClickManager>();
-        Camera.main.gameObject.GetComponent<ClickManager>().cam = Camera.main;
+        ClickManager.instance.cam = Camera.main;
     }
 }

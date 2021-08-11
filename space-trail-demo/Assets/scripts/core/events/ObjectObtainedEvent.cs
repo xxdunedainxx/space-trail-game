@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using Assets.scripts.core.events;
 
 namespace Assets.scripts.core.objects
 {
@@ -12,7 +13,7 @@ namespace Assets.scripts.core.objects
         
         public BasicItem item;
         bool isActive = true;
-        List<IEvent> dependentEvents;
+        List<EventLookupInfo> dependentEvents;
 
         public ObjectObtainedEvent(BasicItem item)
         {
@@ -44,7 +45,7 @@ namespace Assets.scripts.core.objects
             return this.isActive;
         }
 
-        public virtual List<IEvent> contingentEvents()
+        public virtual List<EventLookupInfo> contingentEvents()
         {
             return this.dependentEvents;
         }
