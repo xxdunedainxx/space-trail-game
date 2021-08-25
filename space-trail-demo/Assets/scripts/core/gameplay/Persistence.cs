@@ -30,9 +30,9 @@ namespace Assets.scripts.core
                     Persistence.persistenceLayer = (PersistenceLayer)bformatter.Deserialize(stream);
                 }
                 Persistence.initialized = true;
-                //Persistence.InitGameState();
-                //Persistence.InitGamePreferences();
-                //Persistence.InitPlayerState();
+                Persistence.InitGameState();
+                Persistence.InitGamePreferences();
+                Persistence.InitPlayerState();
             }
             Persistence.persistenceLayer.printState();
             
@@ -81,6 +81,7 @@ namespace Assets.scripts.core
                 return;
             }
             GameState.getGameState().levelState = persistenceLayer.levelState;
+            GameState.getGameState().gsStore = persistenceLayer.gameStateStore;
         }
 
         private static void InitPlayerState()
@@ -105,14 +106,16 @@ namespace Assets.scripts.core
     class PersistenceLayer
     {
         public GameState.LEVELS levelState;
+        public GameState.GameStateStore gameStateStore;
         public GamePreferences prefs;
         public PlayerState player;
 
-        public PersistenceLayer(GameState.LEVELS levelState, GamePreferences prefs, PlayerState p)
+        public PersistenceLayer(GameState.LEVELS levelState, GamePreferences prefs, PlayerState p, GameState.GameStateStore gs)
         {
             this.levelState = levelState;
             this.prefs = prefs;
             this.player = p;
+            this.gameStateStore = gs;
         }
 
         public PersistenceLayer()
@@ -123,6 +126,7 @@ namespace Assets.scripts.core
         public void firstTimeLoad()
         {
             this.levelState = GameState.getGameState().levelState;
+            this.gameStateStore = GameState.getGameState().gsStore;
             this.prefs = GamePreferences.getPreferences();
             this.player = new PlayerState();
         }
@@ -130,6 +134,7 @@ namespace Assets.scripts.core
         public void initDefaultObjects()
         {
             this.levelState = GameState.getGameState().levelState;
+            this.gameStateStore = GameState.getGameState().gsStore;
             this.prefs = GamePreferences.getPreferences();
             this.player = GameState.getGameState().playerReference.getPlayerState();
         }
@@ -137,6 +142,7 @@ namespace Assets.scripts.core
         public void printState()
         {
             this.player.printPlayerState();
+            this.gameStateStore.PrintGameStateStore();
         }
     }
 }

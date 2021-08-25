@@ -44,7 +44,7 @@ public class Level
             Debug.unityLogger.Log("applying vertical graviy");
             this.applyVerticalGravity();
         }
-        GameState.getGameState().LAST_LEVEL = this.name;
+        GameState.getGameState().gsStore.LAST_LEVEL = this.name;
     }
  
     public static void levelTransition(string toLevel)
@@ -70,9 +70,9 @@ public class Level
 
     public virtual void transitionHandler()
     {
-        if(this.transitionHandlers != null && this.transitionHandlers.ContainsKey(GameState.getGameState().LAST_LEVEL))
+        if(this.transitionHandlers != null && this.transitionHandlers.ContainsKey(GameState.getGameState().gsStore.LAST_LEVEL))
         {
-            GameState.getGameState().playerReference.adjustPlayerPosition(this.transitionHandlers[GameState.getGameState().LAST_LEVEL]);
+            GameState.getGameState().playerReference.adjustPlayerPosition(this.transitionHandlers[GameState.getGameState().gsStore.LAST_LEVEL]);
         }
     }
 

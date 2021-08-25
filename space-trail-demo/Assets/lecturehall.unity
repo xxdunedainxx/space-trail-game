@@ -3264,9 +3264,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3831684946018094945, guid: 6804465715218f54ca560a656493586b, type: 3}
+      propertyPath: interactImageEast
+      value: 
+      objectReference: {fileID: 21300000, guid: 17a25040367006340973e4637010c837, type: 3}
+    - target: {fileID: 3831684946018094945, guid: 6804465715218f54ca560a656493586b, type: 3}
+      propertyPath: interactImageWest
+      value: 
+      objectReference: {fileID: 21300000, guid: 17a25040367006340973e4637010c837, type: 3}
+    - target: {fileID: 3831684946018094945, guid: 6804465715218f54ca560a656493586b, type: 3}
+      propertyPath: interactImageNorth
+      value: 
+      objectReference: {fileID: 21300000, guid: 17a25040367006340973e4637010c837, type: 3}
+    - target: {fileID: 3831684946018094945, guid: 6804465715218f54ca560a656493586b, type: 3}
+      propertyPath: interactImageSouth
+      value: 
+      objectReference: {fileID: 21300000, guid: 17a25040367006340973e4637010c837, type: 3}
     - target: {fileID: 8914095329759874500, guid: 6804465715218f54ca560a656493586b, type: 3}
       propertyPath: m_RootOrder
       value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 8914095329759874500, guid: 6804465715218f54ca560a656493586b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8914095329759874500, guid: 6804465715218f54ca560a656493586b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8914095329759874500, guid: 6804465715218f54ca560a656493586b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3308,6 +3332,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8914095329759874501, guid: 6804465715218f54ca560a656493586b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 17a25040367006340973e4637010c837, type: 3}
     - target: {fileID: 8914095329759874523, guid: 6804465715218f54ca560a656493586b, type: 3}
       propertyPath: m_Name
       value: professor

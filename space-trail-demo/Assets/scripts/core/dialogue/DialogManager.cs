@@ -45,11 +45,6 @@ public sealed class DialogManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        
-    }
-
     bool TextBoxReady()
     {
         Debug.unityLogger.Log("waiting for text box...");
@@ -152,6 +147,10 @@ public sealed class DialogManager : MonoBehaviour
         if (sentences.Count <= 0)
         {
             this.CheckWriterBeforeEnd();
+        }
+        else if (this.writer.IsWriting())
+        {
+            this.writer.SetToEnd();
         }
         else
         {

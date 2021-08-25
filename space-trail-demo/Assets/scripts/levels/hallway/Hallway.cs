@@ -91,8 +91,8 @@ public class Hallway : Level
 
     public override void prepareLevel()
     {
-        Debug.unityLogger.Log($"Last level: {GameState.getGameState().LAST_LEVEL}");
-        string lastLevel = GameState.getGameState().LAST_LEVEL;
+        Debug.unityLogger.Log($"Last level: {GameState.getGameState().gsStore.LAST_LEVEL}");
+        string lastLevel = GameState.getGameState().gsStore.LAST_LEVEL;
         Debug.unityLogger.Log($"Last level was {lastLevel}, adjusting player position");
         this.transitionHandler();
     }

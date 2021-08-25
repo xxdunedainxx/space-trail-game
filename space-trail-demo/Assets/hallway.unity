@@ -871,7 +871,6 @@ GameObject:
   - component: {fileID: 980328135}
   - component: {fileID: 980328134}
   - component: {fileID: 980328138}
-  - component: {fileID: 980328137}
   m_Layer: 0
   m_Name: Hallway
   m_TagString: MainCamera
@@ -948,19 +947,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &980328137
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 980328133}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 020144e033e9ebd40a05cb6821c0f9bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cam: {fileID: 980328135}
 --- !u!114 &980328138
 MonoBehaviour:
   m_ObjectHideFlags: 0

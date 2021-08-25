@@ -40,22 +40,22 @@ public class DecisionFlyer : MonoBehaviour, IClickable
         DialogManager mgr = DialogManager.instance;
         mgr.yesNoBtns.yesButton.onClick.RemoveAllListeners();
         mgr.yesNoBtns.yesButton.onClick.AddListener(this.AreYouSurePromptYes);
-        Dialog areYouSurePrompt = new Dialog(new List<string>() { $"Are you sure you want to override '{GameState.getGameState().STORY_LINE_CHOSEN}'?" });
+        Dialog areYouSurePrompt = new Dialog(new List<string>() { $"Are you sure you want to override '{GameState.getGameState().gsStore.STORY_LINE_CHOSEN}'?" });
         mgr.StartDialogue(areYouSurePrompt, yesNoButtonsEnabled: true);
     }
 
     void AreYouSurePromptYes()
     {
-        GameState.getGameState().STORY_LINE_CHOSEN = this.storyLineName;
+        GameState.getGameState().gsStore.STORY_LINE_CHOSEN = this.storyLineName;
         DialogManager.instance.EndDialogue();
     }
 
     void YesSelected()
     {
         Debug.unityLogger.Log($"User chose {this.storyLineName}");
-        if (GameState.getGameState().STORY_LINE_CHOSEN == "")
+        if (GameState.getGameState().gsStore.STORY_LINE_CHOSEN == "")
         {
-            GameState.getGameState().STORY_LINE_CHOSEN = this.storyLineName;
+            GameState.getGameState().gsStore.STORY_LINE_CHOSEN = this.storyLineName;
             DialogManager.instance.EndDialogue();
         }
         else

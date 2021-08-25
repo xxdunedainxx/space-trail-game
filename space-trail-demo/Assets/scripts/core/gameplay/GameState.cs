@@ -6,13 +6,12 @@ using System;
 [Serializable]
 public class GameState 
 {
-    public string currentLevelReference;
+    public string currentLevelReference = "";
     public player playerReference = null;
     public static GameState instance { get; private set; }
     public LEVELS levelState = new LEVELS();
+    public GameStateStore gsStore = new GameStateStore();
     private bool ready = false;
-    public string LAST_LEVEL = "";
-    public string STORY_LINE_CHOSEN = "";
 
     public GameState()
     {
@@ -46,6 +45,23 @@ public class GameState
     public void notReady()
     {
         this.ready = false;
+    }
+
+    [Serializable]
+    public class GameStateStore
+    {
+        public string LAST_LEVEL = "";
+        public string STORY_LINE_CHOSEN = "";
+
+        public void PrintGameStateStore()
+        {
+            string pLine = $@"
+            ==== Game State ====
+            Last Level: {this.LAST_LEVEL},
+            Story Line Chosen: {this.STORY_LINE_CHOSEN},
+        ";
+            Debug.unityLogger.Log(pLine);
+        }
     }
 
     [Serializable]
