@@ -6,12 +6,11 @@ using Assets.scripts.core.gameplay;
 using Assets.scripts.core.dialogue;
 using System;
 
-public class SpacetrailGame : MonoBehaviour
+public class SpacetrailGame : GameLoader
 {
     [SerializeField]
     string level;
     Level lvl;
-    public static SpacetrailGame instance { get; private set; }
 
     private void getLevel()
     {
@@ -19,32 +18,16 @@ public class SpacetrailGame : MonoBehaviour
         this.lvl = LevelFactory.FetchLevel(this.level);
     }
 
-    private void Awake()
+    // Start is called before the first frame update
+    void Start()
     {
-        if (instance != null && instance != this)
-        {
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            instance = this;
-        }
-    }
-
-        // Start is called before the first frame update
-        void Start()
-    {
+        this.Initialize();
         this.getLevel();
-        Persistence.InitPersistence();
         this.lvl.gameState = GameState.getGameState();
         this.lvl.gameState.currentLevelReference = lvl.name;
         this.InitGameState();
         this.InitGamePreferences();
-        StartCoroutine(this.WaitForEvents(this.doLast));
-        this.InitializeDialogueManager();
-        this.InitializeLevelTransitioner();
-        this.InitLevelTransitioner();
-        this.AddClickManager();
+        StartCoroutine(this.WaitForEvents(this.doLast));  
     }
 
     private void doLast()
@@ -90,43 +73,11 @@ public class SpacetrailGame : MonoBehaviour
         GamePreferences.setGamePreferences(Persistence.persistenceLayer.prefs);
     }
 
-    private void InitLevelTransitioner()
-    {
-        this.gameObject.AddComponent<LevelLoader>();
-    }
-
     private void InitPlayerState()
     {
 
         player p = GameState.getGameState().playerReference;
         p.initPlayer();
         p.setPlayerState(Persistence.persistenceLayer.player);
-    }
-
-    private void InitializeDialogueManager()
-    {
-        if(this.lvl.requiresDialogue)
-        {
-            Debug.unityLogger.Log("level requires dialogue...");
-            this.gameObject.AddComponent<DialogueWriter>();
-            this.gameObject.AddComponent<DialogManager>();
-        }
-    }
-
-
-    private void InitializeLevelTransitioner()
-    {
-        this.gameObject.AddComponent<LevelTransitionHandler>();
-    }
-
-    private void InitializeCameraFollow()
-    {
-        this.gameObject.AddComponent<FollowPlayer>();
-    }
-
-    private void AddClickManager()
-    {
-        Camera.main.gameObject.AddComponent<ClickManager>();
-        ClickManager.instance.cam = Camera.main;
     }
 }

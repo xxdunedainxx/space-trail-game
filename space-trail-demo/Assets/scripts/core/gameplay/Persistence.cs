@@ -13,6 +13,7 @@ namespace Assets.scripts.core
     {
         private static bool initialized = false;
         private static string persistencePath = "game_data.json";
+        public static bool playerRequired = true;
         public static PersistenceLayer persistenceLayer = null;
         // https://www.newtonsoft.com/json/help/html/SerializingJSON.htm
         public static void InitPersistence()
@@ -32,7 +33,10 @@ namespace Assets.scripts.core
                 Persistence.initialized = true;
                 Persistence.InitGameState();
                 Persistence.InitGamePreferences();
-                Persistence.InitPlayerState();
+                if (Persistence.playerRequired)
+                {
+                    Persistence.InitPlayerState();
+                }
             }
             Persistence.persistenceLayer.printState();
             
@@ -136,7 +140,10 @@ namespace Assets.scripts.core
             this.levelState = GameState.getGameState().levelState;
             this.gameStateStore = GameState.getGameState().gsStore;
             this.prefs = GamePreferences.getPreferences();
-            this.player = GameState.getGameState().playerReference.getPlayerState();
+            if (Persistence.playerRequired)
+            {
+                this.player = GameState.getGameState().playerReference.getPlayerState();
+            }
         }
 
         public void printState()

@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/LennysBar.unity
     guid: 534fde72c7a84664e9a3eda1be86779b
+  - enabled: 1
+    path: Assets/TAOffice.unity
+    guid: a30032b6be05e224dad740d321b0e268
   m_configObjects: {}

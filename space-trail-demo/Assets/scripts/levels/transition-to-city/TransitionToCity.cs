@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using Assets.scripts.ui.asset_loaders;
+using Assets.scripts.core.gameplay;
 
 namespace Assets.scripts.levels
 {
@@ -15,6 +16,11 @@ namespace Assets.scripts.levels
         public TransitionTocity() : base("TransitionTocity", false)
         {
             Debug.unityLogger.Log("TransitionTocity constructor");
+            this.transitionHandlers = new Dictionary<string, Vector3>
+            {
+                {LevelFactory.OUTSIDE_LECTUREHALL, new Vector3(-0.036f, 0.669f, 0)},
+                {LevelFactory.CITY,  new Vector3(-0.02f, -1.463f, 0)}
+            };
         }
 
         public override void startLevel()
