@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/transition-to-town.unity
+- path: Assets/LennysBar.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

@@ -23,4 +23,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/transition-to-town.unity
     guid: 3e60fb2095689ac48a05961fbba71bce
+  - enabled: 1
+    path: Assets/city-area.unity
+    guid: 3d708fa8b888abb4e991b81f0d774f9a
+  - enabled: 1
+    path: Assets/LennysBar.unity
+    guid: 534fde72c7a84664e9a3eda1be86779b
   m_configObjects: {}

@@ -16,6 +16,8 @@ namespace Assets.scripts.core.gameplay
         public static string TA_OFFICE = "TAOffice";
         public static string OUTSIDE_LECTUREHALL = "OutsideLectureHall";
         public static string TRANSITION_TO_CITY = "TransitionTocity";
+        public static string CITY = "city-area";
+        public static string LENNYS_BAR = "LennysBar";
 
         static Dictionary<string, Func<Level>> LEVELS = new Dictionary<string, Func<Level>>
         {
@@ -23,7 +25,9 @@ namespace Assets.scripts.core.gameplay
             {LevelFactory.LECTURE_HALL, generateLectureHall},
             {LevelFactory.TA_OFFICE, generateTAOffice },
             {LevelFactory.OUTSIDE_LECTUREHALL, generateOutsideLectureHall },
-            {LevelFactory.TRANSITION_TO_CITY, generateTransitionToCity }
+            {LevelFactory.TRANSITION_TO_CITY, generateTransitionToCity },
+            {LevelFactory.CITY, generateCity },
+            {LevelFactory.LENNYS_BAR, generateLennysBar }
         };
 
         public static Level FetchLevel(string name)
@@ -54,6 +58,16 @@ namespace Assets.scripts.core.gameplay
         private static TransitionTocity generateTransitionToCity()
         {
             return new TransitionTocity();
+        }
+
+        private static City generateCity()
+        {
+            return new City();
+        }
+
+        private static LennysBar generateLennysBar()
+        {
+            return new LennysBar();
         }
     }
 }
