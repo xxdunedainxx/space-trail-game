@@ -23,23 +23,19 @@ namespace Assets.scripts.core
             {
                 Persistence.PersistData(true);
             }
-            else
+            using (Stream stream = File.Open(Persistence.persistencePath, FileMode.Open))
             {
-                using (Stream stream = File.Open(Persistence.persistencePath, FileMode.Open))
-                {
-                    var bformatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-                    Persistence.persistenceLayer = (PersistenceLayer)bformatter.Deserialize(stream);
-                }
-                Persistence.initialized = true;
-                Persistence.InitGameState();
-                Persistence.InitGamePreferences();
-                if (Persistence.playerRequired)
-                {
-                    Persistence.InitPlayerState();
-                }
+                var bformatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                Persistence.persistenceLayer = (PersistenceLayer)bformatter.Deserialize(stream);
+            }
+            Persistence.initialized = true;
+            Persistence.InitGameState();
+            Persistence.InitGamePreferences();
+            if (Persistence.playerRequired)
+            {
+                Persistence.InitPlayerState();
             }
             Persistence.persistenceLayer.printState();
-            
         }
 
         public static bool CheckInitialized()

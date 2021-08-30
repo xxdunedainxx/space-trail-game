@@ -32,6 +32,7 @@ namespace Assets.scripts.core
             this.InitializeLevelTransitioner();
             this.InitLevelTransitioner();
             this.AddClickManager();
+            this.AddGamePreferencesController();
         }
 
         protected void InitializeDialogueManager()
@@ -61,6 +62,11 @@ namespace Assets.scripts.core
         protected void InitLevelTransitioner()
         {
             this.gameObject.AddComponent<LevelLoader>();
+        }
+
+        protected void AddGamePreferencesController()
+        {
+            this.gameObject.AddComponent<GamePreferencesController>();
         }
     }
 
