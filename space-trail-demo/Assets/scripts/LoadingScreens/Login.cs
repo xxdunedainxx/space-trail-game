@@ -61,7 +61,7 @@ namespace Assets.scripts.LoadingScreens
 
         private void NewGame()
         {
-            Level.levelTransition(LevelFactory.LECTURE_HALL);
+            Level.levelTransition(LevelFactory.CHAPTER_ONE);
         }
 
         private void SetupButtons()

@@ -1,12 +1,29 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using UnityEngine;
+using UnityEngine.UI;
+using Assets.scripts.core;
+using Assets.scripts.core.gameplay;
+using Assets.scripts.core.dialogue;
+
 
 namespace Assets.scripts.LoadingScreens.Chapters
 {
-    class Chapter1
+    class Chapter1 : GameLoader
     {
+        private void Start()
+        {
+            Debug.unityLogger.Log("chapter 1...");
+            Persistence.playerRequired = false;
+            this.Initialize();
+            StartCoroutine(WaitForEffect());
+           
+        }
+
+        private IEnumerator WaitForEffect()
+        {
+            yield return new WaitForSeconds(3);
+            Level.levelTransition(LevelFactory.LECTURE_HALL);
+        }
     }
 }

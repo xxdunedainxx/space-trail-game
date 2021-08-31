@@ -32,4 +32,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/TAOffice.unity
     guid: a30032b6be05e224dad740d321b0e268
+  - enabled: 1
+    path: Assets/Login.unity
+    guid: f13e20628c6370248a54bb6e81afcde8
+  - enabled: 1
+    path: Assets/Chapter1.unity
+    guid: 8e5ecb6355e775543b1417ebbee742c8
   m_configObjects: {}

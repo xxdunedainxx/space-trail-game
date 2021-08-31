@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Assets.scripts.levels.lecturehall;
 using Assets.scripts.levels.outside_college_area;
 using Assets.scripts.levels;
+using Assets.scripts.LoadingScreens.Chapters;
 
 namespace Assets.scripts.core.gameplay
 {
@@ -18,6 +19,7 @@ namespace Assets.scripts.core.gameplay
         public static string TRANSITION_TO_CITY = "TransitionTocity";
         public static string CITY = "city-area";
         public static string LENNYS_BAR = "LennysBar";
+        public static string CHAPTER_ONE = "Chapter1";
 
         static Dictionary<string, Func<Level>> LEVELS = new Dictionary<string, Func<Level>>
         {
