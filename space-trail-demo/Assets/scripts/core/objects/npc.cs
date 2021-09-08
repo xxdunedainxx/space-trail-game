@@ -29,6 +29,8 @@ public class npc : MonoBehaviour, IClickable
     public List<IEvent> events = null;
     public List<EventLookupInfo> eventLookups = null;
     private MovementController _moveController;
+    private static GameObject txtBox = null;
+    private GameObject _txtBox = null;
 
     public void Awake()
     {
@@ -46,6 +48,14 @@ public class npc : MonoBehaviour, IClickable
         this.gameObject.AddComponent<MovementController>();
         this._moveController = this.gameObject.GetComponent<MovementController>();
         this._moveController.objectToControl = this.gameObject;
+
+        if(npc.txtBox == null)
+        {
+            npc.txtBox = GameObject.Find("text-box-example");
+        }
+        GameObject obj = Instantiate(npc.txtBox);
+        obj.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + .4f, this.transform.position.z);
+        this._txtBox = obj;
     }
 
     public bool CanInteract()
@@ -57,6 +67,36 @@ public class npc : MonoBehaviour, IClickable
         }
         return false;
     }
+
+    private void EnableSpeachBox()
+    {
+        Debug.unityLogger.Log("enable speach box?");
+        this._txtBox.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+    }
+
+    private void DisableSpeachBox()
+    {
+        Debug.unityLogger.Log("disable speach box?");
+        this._txtBox.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+    }
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.collider.gameObject.layer == Layers.PLAYER_LAYER_VALUE)
+        {
+            this.EnableSpeachBox();
+            this.orientImage();
+        }
+    }
+
+    public void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.collider.gameObject.layer == Layers.PLAYER_LAYER_VALUE)
+        {
+            this.DisableSpeachBox();
+        }
+    }
+
 
     public void orientImage()
     {
