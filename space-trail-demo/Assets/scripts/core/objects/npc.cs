@@ -11,10 +11,10 @@ public class npc : MonoBehaviour, IClickable
     [SerializeField]
     public Dialog dialog;
     [SerializeField]
-    public Transform body;
+    public Transform body = null;
     [SerializeField]
     public string name;
-    public LayerMask interactLayer;
+    public LayerMask interactLayer = Layers.PLAYER_LAYER;
     [SerializeField]
     List<string> dynamicSentences = null;
     [SerializeField]
@@ -34,15 +34,19 @@ public class npc : MonoBehaviour, IClickable
 
     public void Awake()
     {
+        if (this.body == null)
+        {
+            this.body = this.transform;
+        }
         this.interactLayer = Layers.PLAYER_LAYER;
         if (this.dynamicSentences!= null)
         {
             this.generateDynamicSentences();
         }
 
-        if(this.dialog.sentences.Count == 0)
+        if(this.dialog == null || this.dialog.sentences.Count == 0)
         {
-            this.dialog.sentences = new List<string> {"..."};
+            this.dialog =  new Dialog(new List<string> {"..."});
         }
 
         this.gameObject.AddComponent<MovementController>();

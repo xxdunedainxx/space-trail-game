@@ -6,11 +6,17 @@ using System.Threading.Tasks;
 using UnityEngine;
 using Assets.scripts.ui.asset_loaders;
 using Assets.scripts.core.gameplay;
+using Assets.scripts.levels.outside_college_area;
+using Assets.scripts.core.objects.movement_controllers;
 
 namespace Assets.scripts.levels
 {
     public class City : Level
-    { 
+    {
+        private Vector3 carResetPositionHorizontal = new Vector3(4.34f, 0.45f, 0f);
+        private readonly string oldLadyName = "old-lady-v1";
+        private OldLady oldLadyObject = null;
+
         public City() : base("city-area", false)
         {
             Debug.unityLogger.Log("City constructor");
@@ -21,10 +27,41 @@ namespace Assets.scripts.levels
             };
         }
 
+        private void BootstrapOldLady()
+        {
+            GameObject.Find(this.oldLadyName).AddComponent<OldLady>();
+            this.oldLadyObject = GameObject.Find(this.oldLadyName).GetComponent<OldLady>();
+        }
+
+        private bool CrossStreetGameActive()
+        {
+            return true;
+        }
+
         public override void startLevel()
         {
             base.startLevel();
             Debug.unityLogger.Log("start city ...");
+            Butterfly.AddButterflyMovement();
+            this.InitCars();
+            this.BootstrapOldLady();
+
+            if (CrossStreetGameActive())
+            {
+                this.oldLadyObject.AddEventListener(new CrossStreetGameEvent());
+            }
+        }
+
+        public void InitCars()
+        {
+            foreach(GameObject car in GameObject.FindGameObjectsWithTag("horizontal-car"))
+            {
+                car.AddComponent<Car>();
+                Car cObject = car.GetComponent<Car>();
+                cObject.resetPosition = this.carResetPositionHorizontal;
+                cObject.West();
+                cObject.Go();
+            }
         }
     }
 }

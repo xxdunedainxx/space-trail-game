@@ -9,9 +9,6 @@ using Assets.scripts.core.gameplay;
 namespace Assets.scripts.levels.outside_college_area {
     public class OutsideLecturehall : Level
     {
-
-        private List<string> butterflies = new List<string> {"butterfly1", "butterfly2" };
-
         public OutsideLecturehall() : base("OutsideLectureHall", false)
         {
             Debug.unityLogger.Log("OutsideLectureHall constructor");
@@ -31,11 +28,7 @@ namespace Assets.scripts.levels.outside_college_area {
 
         private void BootstrapButterflies()
         {
-            foreach(string butterfly in this.butterflies)
-            {
-                GameObject butterflyObject = GameObject.Find(butterfly);
-                butterflyObject.AddComponent<Butterfly>();
-            }
+            Butterfly.AddButterflyMovement();
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using Assets.scripts.ui.asset_loaders;
 using Assets.scripts.core.gameplay;
+using Assets.scripts.levels.outside_college_area;
 
 namespace Assets.scripts.levels
 {
@@ -28,6 +29,7 @@ namespace Assets.scripts.levels
             base.startLevel();
             Debug.unityLogger.Log("start transition to city...");
             this.DetermineFlyers();
+            Butterfly.AddButterflyMovement();
         }
 
         private void DetermineFlyers()
