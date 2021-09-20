@@ -15,7 +15,11 @@ namespace Assets.scripts.core.objects.movement_controllers
 
         public void InitMovementController()
         {
-            this.resetPosition = this.transform.position;
+            // if reset position is not set, ensure it is set to something
+            if (this.resetPosition == Vector3.zero)
+            {
+                this.resetPosition = this.transform.position;
+            }
             Debug.unityLogger.Log("Init movement controller for moveable");
             if (this.gameObject.GetComponent<MovementController>() == null)
             {
