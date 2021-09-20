@@ -77,11 +77,13 @@ public class GameState
         public LevelState LECTURE_HALL = new LevelState();
         public LevelState HALLWAY;
         public LevelState TA_OFFICE;
+        public LevelState CITY;
 
         public LEVELS()
         {
             this.initTAOfficeState();
             this.initHallwayState();
+            this.initCityState();
         }
 
         private void initTAOfficeState()
@@ -98,6 +100,15 @@ public class GameState
             this.HALLWAY.eventToggles = new Dictionary<string, bool>
             {
                 {"firstTimeLoad",true}
+            };
+        }
+
+        private void initCityState()
+        {
+            this.CITY = new LevelState();
+            this.CITY.eventToggles = new Dictionary<string, bool>
+            {
+                {"crossStreet", true }
             };
         }
     }

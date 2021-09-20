@@ -35,7 +35,7 @@ namespace Assets.scripts.levels
 
         private bool CrossStreetGameActive()
         {
-            return true;
+            return GameState.getGameState().levelState.CITY.eventToggles["crossStreet"];
         }
 
         public override void startLevel()
@@ -48,7 +48,13 @@ namespace Assets.scripts.levels
 
             if (CrossStreetGameActive())
             {
-                this.oldLadyObject.AddEventListener(new CrossStreetGameEvent());
+                CrossStreetGameEvent game =  new CrossStreetGameEvent();
+                game.SetOldLadyReference(ref this.oldLadyObject);
+                this.oldLadyObject.AddEventListener(game);
+                this.oldLadyObject.ShakeAnimation();
+            } else
+            {
+                this.oldLadyObject.gameObject.SetActive(false);
             }
         }
 

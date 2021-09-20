@@ -41,6 +41,7 @@ namespace Assets.scripts.levels.lecturehall
             Animator anim = this.GetComponent<Animator>();
             anim.enabled = true;
             anim.Play("OmeedAnimationRightLeftLook", -1, 0f);
+            
         }
     }
 }
