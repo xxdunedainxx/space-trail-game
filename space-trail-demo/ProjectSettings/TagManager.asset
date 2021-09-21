@@ -10,6 +10,7 @@ TagManager:
   - horizontal-car
   - vertical-car
   - boundary
+  - glass-shadow
   layers:
   - Default
   - TransparentFX
@@ -22,7 +23,7 @@ TagManager:
   - npc
   - playerlayer
   - backgroundimage
-  - 
+  - boundary
   - 
   - 
   - 

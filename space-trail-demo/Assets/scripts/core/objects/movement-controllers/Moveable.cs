@@ -12,6 +12,8 @@ namespace Assets.scripts.core.objects.movement_controllers
         protected MovementController _movementController = null;
         public  Vector2 movementSpeed;
         public Vector3 resetPosition;
+        private float currentMaxX = 1;
+        private float currentMaxY = 1;
 
         public void InitMovementController()
         {
@@ -33,10 +35,20 @@ namespace Assets.scripts.core.objects.movement_controllers
             }
         }
 
+        public void LoopRandomizedMovement(float maxX, float maxY, int waitSeconds = 1)
+        {
+            Debug.unityLogger.Log("looping randomized movement?");
+            this.currentMaxX = maxX;
+            this.currentMaxY = maxY;
+            this._movementController.RandomizedMove(maxX, maxY, endMovementCallBack: this.LoopRandomizedMovement, waitSeconds);
+        }
+
         public void LoopRandomizedMovement()
         {
             Debug.unityLogger.Log("looping randomized movement?");
-            this._movementController.RandomizedMove(1, 1, endMovementCallBack: this.LoopRandomizedMovement, 1);
+            this.currentMaxX = this._movementController.xdest;
+            this.currentMaxY = this._movementController.ydest;
+            this.LoopRandomizedMovement(this.currentMaxX, this.currentMaxY, 1);
         }
 
         public void ResetPosition()

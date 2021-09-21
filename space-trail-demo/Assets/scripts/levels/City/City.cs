@@ -9,6 +9,7 @@ using Assets.scripts.core.gameplay;
 using Assets.scripts.levels.outside_college_area;
 using Assets.scripts.core.objects.movement_controllers;
 
+
 namespace Assets.scripts.levels
 {
     public class City : Level
@@ -44,6 +45,7 @@ namespace Assets.scripts.levels
             Debug.unityLogger.Log("start city ...");
             Butterfly.AddButterflyMovement();
             this.InitCars();
+            this.InitGlassShadows();
             this.BootstrapOldLady();
 
             if (CrossStreetGameActive())
@@ -67,6 +69,17 @@ namespace Assets.scripts.levels
                 cObject.resetPosition = this.carResetPositionHorizontal;
                 cObject.West();
                 cObject.Go();
+            }
+        }
+
+        public void InitGlassShadows()
+        {
+            foreach(GameObject shadow in GameObject.FindGameObjectsWithTag("glass-shadow"))
+            {
+                shadow.AddComponent<GlassShadowController>();
+                GlassShadowController shadowMover = shadow.GetComponent<GlassShadowController>();
+
+                shadowMover.StartRandomizedMovement();
             }
         }
     }

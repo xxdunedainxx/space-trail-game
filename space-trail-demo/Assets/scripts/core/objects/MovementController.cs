@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
+using Assets.scripts.core;
+using Assets.scripts.core.events;
 
 public class MovementController : MonoBehaviour
 {
@@ -24,16 +25,88 @@ public class MovementController : MonoBehaviour
     private bool isMoving = false;
     private float movementStartLocationX = 0;
     private float movementStartLocationY = 0;
-    private float xdest = 0;
-    private float ydest = 0;
+    public float xdest = 0;
+    public float ydest = 0;
     private int waitSeconds = 0;
-    private Vector2 movementSpeed;
+    private Vector2 movementSpeed = Vector2.zero;
     private Action endMovementCallBack;
     private Func<string> dependentMovementCheck;
     public GameObject objectToControl;
     private string currentMovementType;
     public string dependentMovementFlag;
+    public float xBoundHigh = 0;
+    public float xBoundLow = 0;
+    public List<float> yBound = null;
+    public int LayerBound = -1;
+    private bool boundsCollisionDetected = false;
 
+    public bool CheckXBound()
+    {
+        if(xBoundHigh == 0 || xBoundLow == 0)
+        {
+            return true;
+        } else if(this.objectToControl.gameObject.transform.position.x > this.xBoundHigh || this.objectToControl.gameObject.transform.position.x < this.xBoundLow)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }    }
+
+    public bool CheckYBound()
+    {
+        if (yBound == null)
+        {
+            return true;
+        }
+        else
+        {
+            foreach (float yB in this.yBound)
+            {
+                if (Math.Abs(this.objectToControl.gameObject.transform.position.y) > yB)
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private void ColliderCheckAndResetTrajectory(Collider2D collision)
+    {
+        if (this.LayerBound != -1 && collision.gameObject.layer == this.LayerBound)
+        {
+            this.boundsCollisionDetected = true;
+            this.xdest = -this.xdest;
+            this.ydest = -this.ydest;
+        }
+    }
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        this.ColliderCheckAndResetTrajectory(collision.collider);
+    }
+
+    public void OnCollisionStay2D(Collision2D collision)
+    {
+        this.ColliderCheckAndResetTrajectory(collision.collider);
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        this.ColliderCheckAndResetTrajectory(collision);
+    }
+
+    public void OnTriggerStay2D(Collider2D collision)
+    {
+        this.ColliderCheckAndResetTrajectory(collision);
+    }
+
+    public bool BoundsCheck()
+    {
+        return (CheckXBound() || CheckYBound() || boundsCollisionDetected == false);
+    }
 
     public void SetMovementSpeed(Vector2 nSpeed)
     {
@@ -83,8 +156,11 @@ public class MovementController : MonoBehaviour
         if (isMoving)
         {
             if ((currentMovementType == MovementTypes.DISTANCE_MOVEMENT && CheckMovementDistance()) 
-                || currentMovementType == MovementTypes.DEPENDENT_MOVEMENT && this.dependentMovementFlag == MovementFlags.END)
+                || currentMovementType == MovementTypes.DEPENDENT_MOVEMENT && this.dependentMovementFlag == MovementFlags.END
+                || this.BoundsCheck() == false
+            )
             {
+                this.boundsCollisionDetected = false;
                 Debug.unityLogger.Log("THEY REACHED THE DISTANCE");
                 this.isMoving = false;
                 this.StopRigidBody();
@@ -131,14 +207,15 @@ public class MovementController : MonoBehaviour
 
     public void RandomizedMove(float maxX, float maxY, Action endMovementCallBack = null, int waitSeconds = 0)
     {
-        float randX = UnityEngine.Random.RandomRange(0, maxX);
-        float randY = UnityEngine.Random.RandomRange(0, maxY);
+        float randX = maxX != 0 ? UnityEngine.Random.RandomRange(-maxX, maxX) : 0;
+        float randY = maxY != 0 ? UnityEngine.Random.RandomRange(-maxY, maxY): 0;
+        if (this.movementSpeed == Vector2.zero)
+        {
+            float randXVector = maxX != 0 ? UnityEngine.Random.RandomRange(0, randX) : 0;
+            float randYVector = maxY != 0 ? UnityEngine.Random.RandomRange(0, randY) : 0;
 
-        float randXVector = UnityEngine.Random.RandomRange(0, randX);
-        float randYVector = UnityEngine.Random.RandomRange(0, randY);
-
-        Vector2 movementSpeed = new Vector2(randXVector, randYVector);
-
+            Vector2 movementSpeed = new Vector2(randXVector, randYVector);
+        }
         Debug.unityLogger.Log($"Randomized move generated x {randX}, and y {randY}, from x {randX}, and y {randY}");
 
         StartCoroutine(this.Move(randX, randY, movementSpeed, endMovementCallBack, waitSeconds));
