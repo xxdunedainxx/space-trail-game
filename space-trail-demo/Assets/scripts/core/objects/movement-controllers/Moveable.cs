@@ -12,8 +12,12 @@ namespace Assets.scripts.core.objects.movement_controllers
         protected MovementController _movementController = null;
         public  Vector2 movementSpeed;
         public Vector3 resetPosition;
-        private float currentMaxX = 1;
-        private float currentMaxY = 1;
+        protected float currentMaxX = 1;
+        protected float currentMaxY = 1;
+        protected int waitSeconds = 1;
+
+        protected int xDirection = 1;
+        protected int yDirection = 1;
 
         public void InitMovementController()
         {
@@ -35,7 +39,31 @@ namespace Assets.scripts.core.objects.movement_controllers
             }
         }
 
-        public void LoopRandomizedMovement(float maxX, float maxY, int waitSeconds = 1)
+        protected void SetXDirection()
+        {
+            if (this.currentMaxX < 0)
+            {
+                this.xDirection = -1;
+            }
+            else
+            {
+                this.xDirection = 1;
+            }
+        }
+
+        protected void SetYDirection()
+        {
+            if(this.currentMaxY < 0)
+            {
+                this.yDirection = -1;
+            }
+            else
+            {
+                this.yDirection = 1;
+            }
+        }
+
+        public virtual void LoopRandomizedMovement(float maxX, float maxY, int waitSeconds = 1)
         {
             Debug.unityLogger.Log("looping randomized movement?");
             this.currentMaxX = maxX;
@@ -54,6 +82,17 @@ namespace Assets.scripts.core.objects.movement_controllers
         public void ResetPosition()
         {
             this.gameObject.transform.position = this.resetPosition;
+        }
+
+        protected void SetMovementControllerSpeed()
+        {
+            this.SetXDirection();
+            this.SetYDirection();
+
+            float xDirectionSpeed = this.movementSpeed.x * xDirection;
+            float yDirectionSpeed = this.movementSpeed.y * yDirection;
+
+            this._movementController.SetMovementSpeed(new Vector2(xDirectionSpeed, yDirectionSpeed));
         }
     }
 }
