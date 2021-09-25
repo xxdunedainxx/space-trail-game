@@ -7,6 +7,7 @@ using Assets.scripts.levels.lecturehall;
 using Assets.scripts.levels.outside_college_area;
 using Assets.scripts.levels;
 using Assets.scripts.LoadingScreens.Chapters;
+using Assets.scripts.levels.outside_college_area.overlook;
 
 namespace Assets.scripts.core.gameplay
 {
@@ -20,6 +21,8 @@ namespace Assets.scripts.core.gameplay
         public static string CITY = "city-area";
         public static string LENNYS_BAR = "LennysBar";
         public static string CHAPTER_ONE = "Chapter1";
+        public static string EIGHT_TWELVE = "inside-8-12";
+        public static string SCHOOL_OVERLOOK = "school-overlook";
 
         static Dictionary<string, Func<Level>> LEVELS = new Dictionary<string, Func<Level>>
         {
@@ -29,8 +32,20 @@ namespace Assets.scripts.core.gameplay
             {LevelFactory.OUTSIDE_LECTUREHALL, generateOutsideLectureHall },
             {LevelFactory.TRANSITION_TO_CITY, generateTransitionToCity },
             {LevelFactory.CITY, generateCity },
-            {LevelFactory.LENNYS_BAR, generateLennysBar }
+            {LevelFactory.LENNYS_BAR, generateLennysBar },
+            {LevelFactory.EIGHT_TWELVE,  generateEightTwelve},
+            {LevelFactory.SCHOOL_OVERLOOK,  generateSchoolOverlook}
         };
+
+        public static Level generateEightTwelve()
+        {
+            return new EightTwelve();
+        }
+
+        public static Level generateSchoolOverlook()
+        {
+            return new SchoolOverlook();
+        }
 
         public static Level FetchLevel(string name)
         {

@@ -14,7 +14,7 @@ public class npc : MonoBehaviour, IClickable
     public Transform body = null;
     [SerializeField]
     public string name;
-    public LayerMask interactLayer = Layers.PLAYER_LAYER;
+    public LayerMask interactLayer;
     [SerializeField]
     List<string> dynamicSentences = null;
     [SerializeField]
@@ -34,6 +34,7 @@ public class npc : MonoBehaviour, IClickable
 
     public void Awake()
     {
+        interactLayer = Layers.PLAYER_LAYER;
         if (this.body == null)
         {
             this.body = this.transform;

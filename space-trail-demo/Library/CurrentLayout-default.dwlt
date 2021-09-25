@@ -603,36 +603,36 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/scripts/levels/City
+    - Assets/scripts/core
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/scripts/levels/City
+  - Assets/scripts/core
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\unity\spacetrail\spacetrailgit\tmp\space-trail-game\space-trail-demo
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 506}
-    m_SelectedIDs: 26460000
-    m_LastClickedID: 17958
-    m_ExpandedIDs: 000000005a4500005c4500005e45000060450000624500006445000066450000684500006a4500006c4500006e4500007045000072450000
+    scrollPos: {x: 0, y: 266}
+    m_SelectedIDs: 6a450000
+    m_LastClickedID: 17770
+    m_ExpandedIDs: 000000005e45000060450000624500006445000066450000684500006a4500006c4500006e4500007045000072450000744500007645000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: dialogue
+      m_OriginalName: dialogue
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: 17878
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 5}
     m_SearchString: 
@@ -646,7 +646,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000005a4500005c4500005e45000060450000624500006445000066450000684500006a4500006c4500006e4500007045000072450000
+    m_ExpandedIDs: 000000005e45000060450000624500006445000066450000684500006a4500006c4500006e45000070450000724500007445000076450000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -671,9 +671,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 80420000
-    m_LastClickedInstanceID: 17024
-    m_HadKeyboardFocusLastEvent: 1
+    m_SelectedInstanceIDs: 3ca3ffff
+    m_LastClickedInstanceID: -23748
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c62300002a5100008443000080670000f8420000424200003a42000040420000c04a0000ce420000a641000044850000244300002a72010054bf000000000000c0ca00002693000054450000e8450000944500009645000078420000ee4400009a6f0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -730,9 +730,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 80420000
-      m_LastClickedID: 17024
-      m_ExpandedIDs: 40fbffff
+      m_SelectedIDs: 
+      m_LastClickedID: 0
+      m_ExpandedIDs: ba94ffffd096ffff8a98ffff1ea5ffffd2bfffff1cc6ffffcacaffff9cccffffe4d0ffff32d3ffff04d5ffffe0d6ffffd4d8ffffe0ddffff7ae2ffff96e4ffff86f4ffff00fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -792,9 +792,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -1.9160991, y: 3.517065, z: -6.4016433}
+    m_Target: {x: -0.19404119, y: -2.7057796, z: -13.628925}
     speed: 2
-    m_Value: {x: -1.9160991, y: 3.517065, z: -6.4016433}
+    m_Value: {x: -0.08065858, y: -2.5906417, z: -13.612188}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -845,9 +845,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 1.7765839
+    m_Target: 4.4399786
     speed: 2
-    m_Value: 1.7765839
+    m_Value: 4.6491923
   m_Ortho:
     m_Target: 1
     speed: 2

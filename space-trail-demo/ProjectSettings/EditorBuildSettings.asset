@@ -38,4 +38,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Chapter1.unity
     guid: 8e5ecb6355e775543b1417ebbee742c8
+  - enabled: 1
+    path: Assets/inside-8-12.unity
+    guid: b50483a7f160f9e4b9ac630bc3f8a21c
+  - enabled: 1
+    path: Assets/school-overlook.unity
+    guid: 44c9c33ee7b6e574381918dd247dc48a
   m_configObjects: {}
